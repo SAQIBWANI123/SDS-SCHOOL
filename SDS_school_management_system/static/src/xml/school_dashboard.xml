@@ -1,0 +1,257 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates xml:space="preserve">
+    <t t-name="SDS_school_management_system.CampusPulseDashboard">
+        <div class="o_cp_dash">
+            <t t-if="state.loading and !state.data">
+                <div class="cp-loading"><i class="fa fa-circle-o-notch fa-spin me-2"/>Loading your campus…</div>
+            </t>
+            <t t-elif="state.error or !state.data">
+                <div class="cp-loading">
+                    The dashboard could not be loaded.
+                    <button class="btn btn-sm btn-primary ms-2" t-on-click="load">Retry</button>
+                </div>
+            </t>
+            <t t-else="">
+                <t t-set="d" t-value="state.data"/>
+                <t t-set="k" t-value="d.kpis"/>
+
+                <!-- ================= HERO ================= -->
+                <section class="cp-hero">
+                    <div class="cp-hero-text">
+                        <div class="cp-eyebrow">
+                            <span t-esc="d.company"/>
+                            <span t-if="d.academic_year" class="cp-chip"><i class="fa fa-calendar-o me-1"/><t t-esc="d.academic_year"/></span>
+                        </div>
+                        <h1><t t-esc="greeting"/>, <t t-esc="d.user_name"/></h1>
+                        <p t-esc="todayLabel"/>
+                    </div>
+                    <div class="cp-hero-actions">
+                        <button class="cp-btn" t-on-click="() => this.openNew('New Admission', 'school.admission')"><i class="fa fa-user-plus"/>New Admission</button>
+                        <button class="cp-btn" t-on-click="() => this.openXml('SDS_school_management_system.action_school_attendance')"><i class="fa fa-check-square-o"/>Attendance</button>
+                        <button class="cp-btn" t-on-click="() => this.openList('Unpaid Fees', 'school.student.fee', [['state', 'in', ['posted', 'partially_paid']]])"><i class="fa fa-money"/>Collect Fees</button>
+                        <button class="cp-btn cp-btn-gold" t-on-click="() => this.openNew('New Notice', 'school.notice')"><i class="fa fa-bullhorn"/>Post Notice</button>
+                        <button class="cp-btn cp-btn-icon" title="Refresh" t-on-click="load"><i t-attf-class="fa fa-refresh {{ state.loading ? 'fa-spin' : '' }}"/></button>
+                    </div>
+                </section>
+
+                <!-- ================= KPI STRIP ================= -->
+                <section class="cp-kpis">
+                    <div class="cp-kpi cp-green" t-on-click="() => this.openXml('SDS_school_management_system.action_school_student')">
+                        <div class="cp-kpi-icon"><i class="fa fa-graduation-cap"/></div>
+                        <div class="cp-kpi-body">
+                            <span class="cp-kpi-label">Enrolled Students</span>
+                            <strong t-esc="k.enrolled"/>
+                            <small><t t-esc="k.students"/> total records</small>
+                        </div>
+                    </div>
+                    <div class="cp-kpi cp-blue" t-on-click="() => this.openXml('SDS_school_management_system.action_school_teacher')">
+                        <div class="cp-kpi-icon"><i class="fa fa-user-circle-o"/></div>
+                        <div class="cp-kpi-body">
+                            <span class="cp-kpi-label">Teachers &amp; Staff</span>
+                            <strong t-esc="k.teachers"/>
+                            <small><t t-esc="k.classes"/> classes running</small>
+                        </div>
+                    </div>
+                    <div class="cp-kpi cp-gold" t-on-click="() => this.openXml('SDS_school_management_system.action_school_dashboard_attendance')">
+                        <div class="cp-kpi-icon"><i class="fa fa-check-circle-o"/></div>
+                        <div class="cp-kpi-body">
+                            <span class="cp-kpi-label">Attendance Today</span>
+                            <strong><t t-if="k.att_pct !== null"><t t-esc="k.att_pct"/>%</t><t t-else="">—</t></strong>
+                            <small><t t-if="k.att_total"><t t-esc="k.att_present"/> of <t t-esc="k.att_total"/> present</t><t t-else="">No register submitted</t></small>
+                        </div>
+                    </div>
+                    <div class="cp-kpi cp-teal" t-on-click="() => this.openXml('SDS_school_management_system.action_school_fee_payment')">
+                        <div class="cp-kpi-icon"><i class="fa fa-money"/></div>
+                        <div class="cp-kpi-body">
+                            <span class="cp-kpi-label">Fees Collected</span>
+                            <strong t-esc="compact(k.fee_paid)"/>
+                            <small><t t-esc="k.fee_pct"/>% of <t t-esc="compact(k.fee_billed)"/> billed</small>
+                        </div>
+                    </div>
+                    <div class="cp-kpi cp-coral" t-on-click="() => this.openList('Overdue Fees', 'school.student.fee', [['is_overdue', '=', true]])">
+                        <div class="cp-kpi-icon"><i class="fa fa-exclamation-triangle"/></div>
+                        <div class="cp-kpi-body">
+                            <span class="cp-kpi-label">Overdue Fees</span>
+                            <strong t-esc="compact(k.overdue_amount)"/>
+                            <small><t t-esc="k.overdue_count"/> statement(s) late</small>
+                        </div>
+                    </div>
+                    <div class="cp-kpi cp-violet" t-on-click="() => this.openXml('SDS_school_management_system.action_school_admission')">
+                        <div class="cp-kpi-icon"><i class="fa fa-inbox"/></div>
+                        <div class="cp-kpi-body">
+                            <span class="cp-kpi-label">Pending Admissions</span>
+                            <strong t-esc="k.pending_admissions"/>
+                            <small><t t-esc="k.waitlisted"/> on waitlist</small>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= CHART ROW 1 ================= -->
+                <section class="cp-grid cp-grid-3">
+                    <div class="cp-card">
+                        <header><h3>Enrolment by Grade</h3><span class="cp-sub">Active students</span></header>
+                        <div t-if="!d.grades.length" class="cp-empty">No enrolled students yet.</div>
+                        <div class="cp-hbars">
+                            <div t-foreach="d.grades" t-as="g" t-key="g.id" class="cp-hbar" t-on-click="() => this.openList('Students: ' + g.name, 'school.student', [['grade_id', '=', g.id], ['state', '=', 'enrolled']])">
+                                <span class="cp-hbar-label" t-esc="g.name"/>
+                                <div class="cp-hbar-track"><div class="cp-hbar-fill" t-attf-style="width: {{ pct(g.count, maxGrade) }}%"/></div>
+                                <b t-esc="g.count"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cp-card">
+                        <header><h3>Attendance · Last 7 Days</h3><span class="cp-sub">Present rate</span></header>
+                        <div t-if="!hasAttendanceData" class="cp-empty">No submitted registers this week.</div>
+                        <div t-else="" class="cp-cols">
+                            <div t-foreach="d.attendance_week" t-as="day" t-key="day.date" class="cp-col">
+                                <span class="cp-col-val"><t t-if="day.pct !== null"><t t-esc="day.pct"/>%</t></span>
+                                <div class="cp-col-track">
+                                    <div class="cp-col-fill" t-attf-class="cp-col-fill {{ day.pct !== null and day.pct &lt; 80 ? 'cp-low' : '' }}" t-attf-style="height: {{ day.pct || 0 }}%"/>
+                                </div>
+                                <span class="cp-col-label" t-esc="day.label"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cp-card">
+                        <header><h3>Student Mix</h3><span class="cp-sub">By gender</span></header>
+                        <div t-if="!genderTotal" class="cp-empty">No enrolled students yet.</div>
+                        <div t-else="" class="cp-donut-wrap">
+                            <div class="cp-donut">
+                                <svg viewBox="0 0 36 36">
+                                    <circle cx="18" cy="18" r="15.9155" fill="none" stroke="#e8efec" stroke-width="4"/>
+                                    <circle t-foreach="genderSegments" t-as="s" t-key="s.key" cx="18" cy="18" r="15.9155" fill="none" stroke-width="4" pathLength="100"
+                                            t-att-stroke="s.color" t-att-stroke-dasharray="s.len + ' ' + (100 - s.len)" t-att-stroke-dashoffset="-s.offset"
+                                            transform="rotate(-90 18 18)"/>
+                                </svg>
+                                <div class="cp-donut-center"><strong t-esc="genderTotal"/><span>students</span></div>
+                            </div>
+                            <ul class="cp-legend">
+                                <li t-foreach="genderSegments" t-as="s" t-key="s.key">
+                                    <i t-attf-style="background: {{ s.color }}"/><span t-esc="s.label"/><b><t t-esc="s.value"/> · <t t-esc="s.pct"/>%</b>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- ================= CHART ROW 2 ================= -->
+                <section class="cp-grid cp-grid-2">
+                    <div class="cp-card">
+                        <header>
+                            <h3>Fee Billing vs Collection</h3>
+                            <span class="cp-sub"><i class="cp-dot cp-dot-billed"/>Billed <i class="cp-dot cp-dot-coll"/>Collected</span>
+                        </header>
+                        <div t-if="!hasFeeData" class="cp-empty">No fee activity in the last 6 months.</div>
+                        <div t-else="" class="cp-fee-chart">
+                            <div t-foreach="d.fee_months" t-as="m" t-key="m_index" class="cp-fee-month">
+                                <div class="cp-fee-bars">
+                                    <div class="cp-fee-bar cp-billed" t-attf-style="height: {{ pct(m.billed, maxFee) }}%" t-att-title="'Billed ' + money(m.billed)"/>
+                                    <div class="cp-fee-bar cp-coll" t-attf-style="height: {{ pct(m.collected, maxFee) }}%" t-att-title="'Collected ' + money(m.collected)"/>
+                                </div>
+                                <span t-esc="m.label"/>
+                            </div>
+                        </div>
+                        <div class="cp-fee-summary">
+                            <div t-foreach="d.fee_states" t-as="fs" t-key="fs.state" t-attf-class="cp-pill cp-pill-{{ fs.state }}">
+                                <span t-esc="fs.label"/> <b t-esc="fs.count"/>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cp-card">
+                        <header>
+                            <h3>Overdue Fees</h3>
+                            <a class="cp-link" t-on-click="() => this.openList('Overdue Fees', 'school.student.fee', [['is_overdue', '=', true]])">View all</a>
+                        </header>
+                        <div t-if="!d.overdue_fees.length" class="cp-empty cp-good"><i class="fa fa-smile-o me-1"/>Nothing overdue — great job!</div>
+                        <table t-else="" class="cp-table">
+                            <tbody>
+                                <tr t-foreach="d.overdue_fees" t-as="f" t-key="f.id" t-on-click="() => this.openRecord('school.student.fee', f.id)">
+                                    <td><b t-esc="f.student"/><small t-esc="f.class"/></td>
+                                    <td class="text-end"><b t-esc="money(f.due)"/><small class="cp-late"><t t-esc="f.days"/> days late</small></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- ================= LISTS ROW ================= -->
+                <section class="cp-grid cp-grid-3">
+                    <div class="cp-card">
+                        <header><h3>Latest Admissions</h3><a class="cp-link" t-on-click="() => this.openXml('SDS_school_management_system.action_school_admission')">Open</a></header>
+                        <div t-if="!d.admissions.length" class="cp-empty">No applications yet.</div>
+                        <ul class="cp-list">
+                            <li t-foreach="d.admissions" t-as="a" t-key="a.id" t-on-click="() => this.openRecord('school.admission', a.id)">
+                                <div class="cp-avatar" t-esc="(a.student_name || '?').charAt(0).toUpperCase()"/>
+                                <div class="cp-li-main"><b t-esc="a.student_name"/><small><t t-esc="a.grade"/> · <t t-esc="a.date"/></small></div>
+                                <span t-attf-class="cp-state cp-state-{{ a.state }}" t-esc="a.state_label"/>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="cp-card">
+                        <header><h3>Notice Board</h3><a class="cp-link" t-on-click="() => this.openXml('SDS_school_management_system.action_school_notice')">Manage</a></header>
+                        <div t-if="!d.notices.length" class="cp-empty">No published notices.</div>
+                        <ul class="cp-list">
+                            <li t-foreach="d.notices" t-as="n" t-key="n.id" t-on-click="() => this.openRecord('school.notice', n.id)">
+                                <div t-attf-class="cp-notice-dot cp-prio-{{ n.priority }}"><i t-attf-class="fa {{ n.pinned ? 'fa-thumb-tack' : 'fa-bullhorn' }}"/></div>
+                                <div class="cp-li-main"><b t-esc="n.title"/><small t-esc="n.excerpt || n.date"/></div>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="cp-card">
+                        <header><h3>Upcoming Exams</h3><a class="cp-link" t-on-click="() => this.openXml('SDS_school_management_system.action_school_exam')">Open</a></header>
+                        <div t-if="!d.exams.length" class="cp-empty">No upcoming exams.</div>
+                        <ul class="cp-list">
+                            <li t-foreach="d.exams" t-as="e" t-key="e.id" t-on-click="() => this.openRecord('school.exam', e.id)">
+                                <div class="cp-date"><b t-esc="e.start.slice(8, 10)"/><span t-esc="monthShort(e.start)"/></div>
+                                <div class="cp-li-main"><b t-esc="e.name"/><small><t t-esc="e.grade"/> · <t t-if="e.days &gt; 0">in <t t-esc="e.days"/> days</t><t t-else="">in progress</t></small></div>
+                            </li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- ================= BOTTOM ROW ================= -->
+                <section class="cp-grid cp-grid-3">
+                    <div class="cp-card">
+                        <header><h3>Class Occupancy</h3></header>
+                        <div t-if="!d.classes.length" class="cp-empty">No classes defined.</div>
+                        <div class="cp-hbars">
+                            <div t-foreach="d.classes" t-as="c" t-key="c.id" class="cp-hbar">
+                                <span class="cp-hbar-label" t-esc="c.name"/>
+                                <div class="cp-hbar-track"><div class="cp-hbar-fill cp-alt" t-attf-style="width: {{ pct(c.count, c.capacity || c.count) }}%"/></div>
+                                <b><t t-esc="c.count"/>/<t t-esc="c.capacity"/></b>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="cp-card">
+                        <header><h3>Birthdays This Week</h3></header>
+                        <div t-if="!d.birthdays.length" class="cp-empty">No birthdays in the next 7 days.</div>
+                        <ul class="cp-list">
+                            <li t-foreach="d.birthdays" t-as="b" t-key="b_index">
+                                <div class="cp-avatar cp-avatar-gold"><i class="fa fa-birthday-cake"/></div>
+                                <div class="cp-li-main"><b t-esc="b.name"/><small><t t-esc="b.role"/> · turns <t t-esc="b.age"/></small></div>
+                                <span class="cp-state cp-state-new"><t t-if="b.days === 0">Today</t><t t-else=""><t t-esc="b.label"/></t></span>
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="cp-card">
+                        <header><h3>Library &amp; Resources</h3></header>
+                        <div class="cp-mini-stats">
+                            <div class="cp-mini" t-on-click="() => this.openXml('SDS_school_management_system.action_school_library_book')"><b t-esc="k.books"/><span>Titles</span></div>
+                            <div class="cp-mini" t-on-click="() => this.openList('Books Out', 'school.library.issue', [['state', 'in', ['issued', 'overdue']]])"><b t-esc="k.library_out"/><span>On loan</span></div>
+                            <div class="cp-mini cp-mini-warn" t-on-click="() => this.openList('Overdue Books', 'school.library.issue', ['|', ['state', '=', 'overdue'], '&amp;', ['state', '=', 'issued'], ['date_due', '&lt;', d.today]])"><b t-esc="k.library_late"/><span>Overdue</span></div>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="cp-footer">CampusPulse · by <b>SmartDeskSolution</b> · www.smartdesksolution.com</footer>
+            </t>
+        </div>
+    </t>
+</templates>

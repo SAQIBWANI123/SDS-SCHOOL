@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_school_notice_list" model="ir.ui.view">
+        <field name="name">school.notice.list</field>
+        <field name="model">school.notice</field>
+        <field name="arch" type="xml">
+            <list string="Notices" decoration-danger="priority == 'urgent'" decoration-warning="priority == 'important'" decoration-muted="state == 'archived'">
+                <field name="pinned" widget="boolean_favorite" nolabel="1"/>
+                <field name="name"/>
+                <field name="audience"/>
+                <field name="priority" widget="badge"/>
+                <field name="date_publish"/>
+                <field name="date_expiry"/>
+                <field name="state" widget="badge" decoration-success="state == 'published'" decoration-info="state == 'draft'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_notice_form" model="ir.ui.view">
+        <field name="name">school.notice.form</field>
+        <field name="model">school.notice</field>
+        <field name="arch" type="xml">
+            <form string="Notice">
+                <header>
+                    <button name="action_publish" string="Publish" type="object" class="btn-primary" invisible="state == 'published'"/>
+                    <button name="action_archive_notice" string="Archive" type="object" invisible="state != 'published'"/>
+                    <button name="action_reset_draft" string="Back to Draft" type="object" invisible="state == 'draft'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,published,archived"/>
+                </header>
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" placeholder="Notice title"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="audience"/>
+                            <field name="priority"/>
+                            <field name="pinned"/>
+                        </group>
+                        <group>
+                            <field name="date_publish"/>
+                            <field name="date_expiry"/>
+                            <field name="author_id"/>
+                        </group>
+                    </group>
+                    <field name="body" placeholder="Write the announcement..."/>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_school_notice_search" model="ir.ui.view">
+        <field name="name">school.notice.search</field>
+        <field name="model">school.notice</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <filter name="published" string="Published" domain="[('state', '=', 'published')]"/>
+                <filter name="draft" string="Drafts" domain="[('state', '=', 'draft')]"/>
+                <group>
+                    <filter name="group_audience" string="Audience" context="{'group_by': 'audience'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_school_notice" model="ir.actions.act_window">
+        <field name="name">Notices</field>
+        <field name="res_model">school.notice</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_school_notice_search"/>
+    </record>
+
+    <menuitem id="menu_school_notice" name="Notices" parent="menu_school_notice_root"
+              action="action_school_notice" sequence="1"/>
+</odoo>

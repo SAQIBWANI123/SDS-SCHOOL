@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_school_admission_tree" model="ir.ui.view">
+        <field name="name">school.admission.list</field>
+        <field name="model">school.admission</field>
+        <field name="arch" type="xml">
+            <list string="Admission Applications" decoration-muted="state == 'rejected'">
+                <field name="name"/>
+                <field name="student_name"/>
+                <field name="grade_id"/>
+                <field name="guardian_name"/>
+                <field name="guardian_phone"/>
+                <field name="create_date" string="Applied On" widget="date"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'new'"
+                       decoration-warning="state in ('review', 'waitlist')"
+                       decoration-success="state == 'approved'"
+                       decoration-danger="state == 'rejected'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_admission_kanban" model="ir.ui.view">
+        <field name="name">school.admission.kanban</field>
+        <field name="model">school.admission</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="state" class="o_kanban_small_column" records_draggable="0">
+                <templates>
+                    <t t-name="card">
+                        <field name="student_name" class="fw-bold fs-5"/>
+                        <div class="text-muted"><field name="name"/> · <field name="grade_id"/></div>
+                        <div><i class="fa fa-user me-1" title="Guardian"/><field name="guardian_name"/></div>
+                        <div><i class="fa fa-phone me-1" title="Phone"/><field name="guardian_phone"/></div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <record id="view_school_admission_form" model="ir.ui.view">
+        <field name="name">school.admission.form</field>
+        <field name="model">school.admission</field>
+        <field name="arch" type="xml">
+            <form string="Admission Application">
+                <header>
+                    <button name="action_review" type="object" string="Start Review" invisible="state != 'new'"/>
+                    <button name="action_approve" type="object" string="Approve &amp; Enrol" class="btn-primary" invisible="state not in ['new', 'review', 'waitlist']"/>
+                    <button name="action_waitlist" type="object" string="Waitlist" invisible="state not in ['new', 'review']"/>
+                    <button name="action_reject" type="object" string="Reject" invisible="state not in ['new', 'review', 'waitlist']"/>
+                    <button name="action_reset" type="object" string="Reset to New" invisible="state not in ['waitlist', 'rejected']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="new,review,waitlist,approved"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_open_student" type="object" class="oe_stat_button" icon="fa-graduation-cap" invisible="not student_id">
+                            <div class="o_stat_info"><span class="o_stat_text">Student Profile</span></div>
+                        </button>
+                    </div>
+                    <div class="oe_title"><h1><field name="name" readonly="1"/></h1></div>
+                    <group>
+                        <group string="Applicant">
+                            <field name="student_name"/>
+                            <field name="date_of_birth"/>
+                            <field name="gender"/>
+                            <field name="grade_id"/>
+                            <field name="academic_year_id"/>
+                        </group>
+                        <group string="Guardian">
+                            <field name="guardian_name"/>
+                            <field name="guardian_relation"/>
+                            <field name="guardian_email" widget="email"/>
+                            <field name="guardian_phone" widget="phone"/>
+                        </group>
+                    </group>
+                    <group string="Decision" invisible="state in ['new', 'review'] and not reviewer_id">
+                        <group>
+                            <field name="reviewer_id"/>
+                            <field name="decision_date"/>
+                        </group>
+                        <group>
+                            <field name="rejection_reason"/>
+                            <field name="student_id" invisible="not student_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Additional Information">
+                            <field name="address" placeholder="Address"/>
+                            <field name="notes" placeholder="Internal notes"/>
+                        </page>
+                        <page string="Documents">
+                            <field name="document_ids" widget="many2many_binary"/>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_school_admission_search" model="ir.ui.view">
+        <field name="name">school.admission.search</field>
+        <field name="model">school.admission</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="student_name"/>
+                <field name="guardian_name"/>
+                <field name="grade_id"/>
+                <filter name="pending" string="Pending" domain="[('state', 'in', ('new', 'review'))]"/>
+                <filter name="waitlist" string="Waitlisted" domain="[('state', '=', 'waitlist')]"/>
+                <group>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_grade" string="Grade" context="{'group_by': 'grade_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_school_admission" model="ir.actions.act_window">
+        <field name="name">Admission Applications</field>
+        <field name="res_model">school.admission</field>
+        <field name="view_mode">kanban,list,form</field>
+        <field name="search_view_id" ref="view_school_admission_search"/>
+    </record>
+
+    <menuitem id="menu_school_admission" name="Admissions" parent="menu_school_students_root" action="action_school_admission" sequence="1"/>
+</odoo>

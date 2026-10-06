@@ -1,0 +1,376 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Fee Heads -->
+    <record id="view_school_fee_head_tree" model="ir.ui.view">
+        <field name="name">school.fee.head.list</field>
+        <field name="model">school.fee.head</field>
+        <field name="arch" type="xml">
+            <list editable="bottom" string="Fee Heads">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="description"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="action_school_fee_head" model="ir.actions.act_window">
+        <field name="name">Fee Heads / Categories</field>
+        <field name="res_model">school.fee.head</field>
+        <field name="view_mode">list</field>
+    </record>
+
+    <!-- Fee Structure -->
+    <record id="view_school_fee_structure_tree" model="ir.ui.view">
+        <field name="name">school.fee.structure.list</field>
+        <field name="model">school.fee.structure</field>
+        <field name="arch" type="xml">
+            <list string="Fee Structures">
+                <field name="name"/>
+                <field name="grade_id"/>
+                <field name="academic_year_id"/>
+                <field name="total_amount"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_fee_structure_form" model="ir.ui.view">
+        <field name="name">school.fee.structure.form</field>
+        <field name="model">school.fee.structure</field>
+        <field name="arch" type="xml">
+            <form string="Fee Structure">
+                <header>
+                    <button name="action_generate_fees" string="Generate Fee Statements" type="object" class="btn-primary"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Grade 10 Annual Fees 2026"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="grade_id"/>
+                            <field name="academic_year_id"/>
+                        </group>
+                        <group>
+                            <field name="total_amount"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Fee Head Items">
+                            <field name="line_ids">
+                                <list editable="bottom">
+                                    <field name="fee_head_id"/>
+                                    <field name="amount"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_school_fee_structure" model="ir.actions.act_window">
+        <field name="name">Fee Structures</field>
+        <field name="res_model">school.fee.structure</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Student Fee Statements / Invoices -->
+    <record id="view_school_student_fee_tree" model="ir.ui.view">
+        <field name="name">school.student.fee.list</field>
+        <field name="model">school.student.fee</field>
+        <field name="arch" type="xml">
+            <list string="Student Fee Receipts / Invoices" decoration-danger="is_overdue">
+                <field name="is_overdue" column_invisible="1"/>
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="class_id"/>
+                <field name="date_invoice"/>
+                <field name="date_due"/>
+                <field name="amount_total"/>
+                <field name="amount_paid"/>
+                <field name="amount_due"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-primary="state == 'posted'"
+                       decoration-warning="state == 'partially_paid'"
+                       decoration-success="state == 'paid'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_student_fee_form" model="ir.ui.view">
+        <field name="name">school.student.fee.form</field>
+        <field name="model">school.student.fee</field>
+        <field name="arch" type="xml">
+            <form string="Student Fee Statement">
+                <header>
+                    <button name="action_post" string="Post Fee Invoice" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_register_payment" string="Register Payment" type="object" class="btn-success" invisible="state not in ['posted', 'partially_paid']"/>
+                    <button name="action_print_receipt" string="Print Statement" type="object" invisible="state == 'draft'"/>
+                    <button name="action_cancel" string="Cancel" type="object" invisible="state not in ['draft', 'posted']" confirm="Cancel this fee statement?"/>
+                    <button name="action_reset_draft" string="Reset to Draft" type="object" invisible="state not in ['cancelled', 'posted']"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,posted,partially_paid,paid"/>
+                </header>
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="action_view_payments" type="object" class="oe_stat_button" icon="fa-money" invisible="payment_count == 0">
+                            <field name="payment_count" widget="statinfo" string="Payments"/>
+                        </button>
+                    </div>
+                    <widget name="web_ribbon" title="Overdue" bg_color="text-bg-danger" invisible="not is_overdue"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Student Information">
+                            <field name="student_id" readonly="state != 'draft'"/>
+                            <field name="class_id"/>
+                            <field name="academic_year_id" readonly="state != 'draft'"/>
+                            <field name="structure_id" readonly="1" invisible="not structure_id"/>
+                        </group>
+                        <group string="Dates &amp; Totals">
+                            <field name="date_invoice" readonly="state != 'draft'"/>
+                            <field name="date_due"/>
+                            <field name="amount_total"/>
+                            <field name="amount_paid"/>
+                            <field name="amount_due" decoration-danger="is_overdue"/>
+                            <field name="is_overdue" invisible="1"/>
+                            <field name="days_overdue" invisible="not is_overdue"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Fee Line Breakdown">
+                            <field name="line_ids" readonly="state != 'draft'">
+                                <list editable="bottom">
+                                    <field name="fee_head_id"/>
+                                    <field name="amount"/>
+                                    <field name="remarks"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Payment History">
+                            <field name="payment_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="date"/>
+                                    <field name="method"/>
+                                    <field name="reference"/>
+                                    <field name="amount" sum="Total"/>
+                                    <field name="collected_by_id"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+                <chatter/>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_school_student_fee_search" model="ir.ui.view">
+        <field name="name">school.student.fee.search</field>
+        <field name="model">school.student.fee</field>
+        <field name="arch" type="xml">
+            <search string="Fee Statements">
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="class_id"/>
+                <filter name="filter_overdue" string="Overdue" domain="[('is_overdue', '=', True)]"/>
+                <filter name="filter_open" string="Unpaid / Partial" domain="[('state', 'in', ['posted', 'partially_paid'])]"/>
+                <filter name="filter_paid" string="Fully Paid" domain="[('state', '=', 'paid')]"/>
+                <separator/>
+                <filter name="filter_draft" string="Draft" domain="[('state', '=', 'draft')]"/>
+                <group>
+                    <filter name="group_class" string="Class" context="{'group_by': 'class_id'}"/>
+                    <filter name="group_state" string="Status" context="{'group_by': 'state'}"/>
+                    <filter name="group_year" string="Academic Year" context="{'group_by': 'academic_year_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_school_student_fee" model="ir.actions.act_window">
+        <field name="name">Student Fee Invoices</field>
+        <field name="res_model">school.student.fee</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_school_student_fee_search"/>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_school_student_fee"
+              name="Fee Receipts / Statements"
+              parent="menu_school_fees_root"
+              action="action_school_student_fee"
+              sequence="1"/>
+
+    <!-- placeholder -->
+    <menuitem id="menu_school_fee_structure"
+              name="Fee Structures"
+              parent="menu_school_fees_root"
+              action="action_school_fee_structure"
+              sequence="4"/>
+
+    <menuitem id="menu_school_fee_head"
+              name="Fee Categories"
+              parent="menu_school_config_root"
+              action="action_school_fee_head"
+              sequence="4"/>
+
+    <!-- ================= PAYMENTS ================= -->
+    <record id="view_school_fee_payment_list" model="ir.ui.view">
+        <field name="name">school.fee.payment.list</field>
+        <field name="model">school.fee.payment</field>
+        <field name="arch" type="xml">
+            <list string="Fee Payments" create="0" edit="0">
+                <field name="name"/>
+                <field name="date"/>
+                <field name="student_id"/>
+                <field name="class_id"/>
+                <field name="fee_id"/>
+                <field name="method" widget="badge"/>
+                <field name="reference" optional="show"/>
+                <field name="amount" sum="Total Collected"/>
+                <field name="collected_by_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_fee_payment_form" model="ir.ui.view">
+        <field name="name">school.fee.payment.form</field>
+        <field name="model">school.fee.payment</field>
+        <field name="arch" type="xml">
+            <form string="Fee Payment" create="0" edit="0">
+                <sheet>
+                    <div class="oe_title"><h1><field name="name"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="fee_id"/>
+                            <field name="student_id"/>
+                            <field name="class_id"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="amount"/>
+                            <field name="method"/>
+                            <field name="reference"/>
+                            <field name="collected_by_id"/>
+                        </group>
+                    </group>
+                    <field name="note" placeholder="Note"/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_school_fee_payment_search" model="ir.ui.view">
+        <field name="name">school.fee.payment.search</field>
+        <field name="model">school.fee.payment</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="fee_id"/>
+                <filter name="filter_today" string="Today" domain="[('date', '=', context_today().strftime('%Y-%m-%d'))]"/>
+                <group>
+                    <filter name="group_method" string="Method" context="{'group_by': 'method'}"/>
+                    <filter name="group_month" string="Month" context="{'group_by': 'date:month'}"/>
+                    <filter name="group_class" string="Class" context="{'group_by': 'class_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="view_school_fee_payment_graph" model="ir.ui.view">
+        <field name="name">school.fee.payment.graph</field>
+        <field name="model">school.fee.payment</field>
+        <field name="arch" type="xml">
+            <graph string="Collections" type="bar">
+                <field name="date" interval="month"/>
+                <field name="method"/>
+                <field name="amount" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="action_school_fee_payment" model="ir.actions.act_window">
+        <field name="name">Fee Payments</field>
+        <field name="res_model">school.fee.payment</field>
+        <field name="view_mode">list,graph,form</field>
+    </record>
+
+    <!-- ================= WIZARDS ================= -->
+    <record id="view_school_fee_payment_wizard_form" model="ir.ui.view">
+        <field name="name">school.fee.payment.wizard.form</field>
+        <field name="model">school.fee.payment.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Register Payment">
+                <group>
+                    <group>
+                        <field name="fee_id" readonly="1" force_save="1"/>
+                        <field name="student_id"/>
+                        <field name="amount_total"/>
+                        <field name="amount_due"/>
+                    </group>
+                    <group>
+                        <field name="amount"/>
+                        <field name="date"/>
+                        <field name="method"/>
+                        <field name="reference"/>
+                        <field name="note"/>
+                    </group>
+                </group>
+                <footer>
+                    <button name="action_confirm" string="Register Payment" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button name="action_confirm_print" string="Register &amp; Print Receipt" type="object" class="btn-secondary"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_school_fee_generate_wizard_form" model="ir.ui.view">
+        <field name="name">school.fee.generate.wizard.form</field>
+        <field name="model">school.fee.generate.wizard</field>
+        <field name="arch" type="xml">
+            <form string="Generate Fee Statements">
+                <group>
+                    <group>
+                        <field name="structure_id" options="{'no_create': True}"/>
+                        <field name="grade_id"/>
+                        <field name="academic_year_id"/>
+                        <field name="class_ids" widget="many2many_tags" options="{'no_create': True}"/>
+                    </group>
+                    <group>
+                        <field name="date_invoice"/>
+                        <field name="date_due"/>
+                        <field name="auto_post"/>
+                        <field name="student_count"/>
+                    </group>
+                </group>
+                <p class="text-muted">One fee statement is created for every enrolled student of the grade who has not been billed with this structure yet.</p>
+                <footer>
+                    <button name="action_generate" string="Generate" type="object" class="btn-primary" data-hotkey="q"/>
+                    <button string="Cancel" class="btn-secondary" special="cancel" data-hotkey="x"/>
+                </footer>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_school_fee_generate_wizard" model="ir.actions.act_window">
+        <field name="name">Generate Fee Statements</field>
+        <field name="res_model">school.fee.generate.wizard</field>
+        <field name="view_mode">form</field>
+        <field name="target">new</field>
+    </record>
+
+    <menuitem id="menu_school_fee_payment" name="Payments" parent="menu_school_fees_root"
+              action="action_school_fee_payment" sequence="2"/>
+    <menuitem id="menu_school_fee_generate" name="Generate Fees" parent="menu_school_fees_root"
+              action="action_school_fee_generate_wizard" sequence="3"
+              groups="SDS_school_management_system.group_school_manager"/>
+</odoo>

@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Academic Year -->
+        <record id="demo_academic_year_2026" model="school.academic.year">
+            <field name="name">2026-2027</field>
+            <field name="code">AY2026</field>
+            <field name="date_start">2026-04-01</field>
+            <field name="date_end">2027-03-31</field>
+            <field name="current">True</field>
+        </record>
+
+        <!-- Terms -->
+        <record id="demo_term_1" model="school.academic.term">
+            <field name="name">Term 1 (Spring)</field>
+            <field name="code">T1-2026</field>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_start">2026-04-01</field>
+            <field name="date_end">2026-09-30</field>
+        </record>
+
+        <record id="demo_term_2" model="school.academic.term">
+            <field name="name">Term 2 (Fall)</field>
+            <field name="code">T2-2026</field>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_start">2026-10-01</field>
+            <field name="date_end">2027-03-31</field>
+        </record>
+
+        <!-- Grade Scale -->
+        <record id="demo_grade_scale_ap" model="school.grade.scale">
+            <field name="name">A+</field>
+            <field name="min_per">90.0</field>
+            <field name="max_per">100.0</field>
+            <field name="gpa">4.0</field>
+            <field name="remarks">Outstanding</field>
+        </record>
+
+        <record id="demo_grade_scale_a" model="school.grade.scale">
+            <field name="name">A</field>
+            <field name="min_per">80.0</field>
+            <field name="max_per">89.9</field>
+            <field name="gpa">3.7</field>
+            <field name="remarks">Excellent</field>
+        </record>
+
+        <record id="demo_grade_scale_b" model="school.grade.scale">
+            <field name="name">B</field>
+            <field name="min_per">65.0</field>
+            <field name="max_per">79.9</field>
+            <field name="gpa">3.0</field>
+            <field name="remarks">Very Good</field>
+        </record>
+
+        <record id="demo_grade_scale_c" model="school.grade.scale">
+            <field name="name">C</field>
+            <field name="min_per">40.0</field>
+            <field name="max_per">64.9</field>
+            <field name="gpa">2.0</field>
+            <field name="remarks">Pass</field>
+        </record>
+
+        <record id="demo_grade_scale_f" model="school.grade.scale">
+            <field name="name">F</field>
+            <field name="min_per">0.0</field>
+            <field name="max_per">39.9</field>
+            <field name="gpa">0.0</field>
+            <field name="remarks">Needs Improvement / Fail</field>
+        </record>
+
+        <!-- Subjects -->
+        <record id="demo_subject_math" model="school.subject">
+            <field name="name">Advanced Mathematics</field>
+            <field name="code">MATH101</field>
+            <field name="subject_type">theory</field>
+            <field name="pass_mark">40.0</field>
+            <field name="max_mark">100.0</field>
+        </record>
+
+        <record id="demo_subject_physics" model="school.subject">
+            <field name="name">Physics &amp; Lab</field>
+            <field name="code">PHY101</field>
+            <field name="subject_type">both</field>
+            <field name="pass_mark">40.0</field>
+            <field name="max_mark">100.0</field>
+        </record>
+
+        <record id="demo_subject_english" model="school.subject">
+            <field name="name">English Literature</field>
+            <field name="code">ENG101</field>
+            <field name="subject_type">theory</field>
+            <field name="pass_mark">40.0</field>
+            <field name="max_mark">100.0</field>
+        </record>
+
+        <record id="demo_subject_cs" model="school.subject">
+            <field name="name">Computer Science &amp; Python</field>
+            <field name="code">CS101</field>
+            <field name="subject_type">both</field>
+            <field name="pass_mark">40.0</field>
+            <field name="max_mark">100.0</field>
+        </record>
+
+        <!-- Grade Levels -->
+        <record id="demo_grade_9" model="school.grade">
+            <field name="name">Grade 9</field>
+            <field name="code">G9</field>
+            <field name="sequence">9</field>
+            <field name="subject_ids" eval="[(4, ref('demo_subject_math')), (4, ref('demo_subject_english'))]"/>
+        </record>
+
+        <record id="demo_grade_10" model="school.grade">
+            <field name="name">Grade 10</field>
+            <field name="code">G10</field>
+            <field name="sequence">10</field>
+            <field name="subject_ids" eval="[(4, ref('demo_subject_math')), (4, ref('demo_subject_physics')), (4, ref('demo_subject_english')), (4, ref('demo_subject_cs'))]"/>
+        </record>
+
+        <!-- Teachers -->
+        <record id="demo_teacher_alan" model="school.teacher">
+            <field name="name">Dr. Alan Turing</field>
+            <field name="email">alan.turing@school.edu</field>
+            <field name="phone">+1 555 0199</field>
+            <field name="qualification">Ph.D. Computer Science</field>
+            <field name="specialization">Mathematics &amp; CS</field>
+            <field name="subject_ids" eval="[(4, ref('demo_subject_math')), (4, ref('demo_subject_cs'))]"/>
+        </record>
+
+        <record id="demo_teacher_margaret" model="school.teacher">
+            <field name="name">Prof. Margaret Hamilton</field>
+            <field name="email">margaret.h@school.edu</field>
+            <field name="phone">+1 555 0188</field>
+            <field name="qualification">M.Sc. Physics</field>
+            <field name="specialization">Physics</field>
+            <field name="subject_ids" eval="[(4, ref('demo_subject_physics'))]"/>
+        </record>
+
+        <!-- Classes -->
+        <record id="demo_class_10a" model="school.class">
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="section">A</field>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="class_teacher_id" ref="demo_teacher_alan"/>
+            <field name="room_number">Room 201</field>
+            <field name="capacity">35</field>
+        </record>
+
+        <!-- Parents -->
+        <record id="demo_parent_robert" model="school.parent">
+            <field name="name">Robert Smith</field>
+            <field name="email">robert.smith@example.com</field>
+            <field name="phone">+1 555 1234</field>
+            <field name="relation_type">father</field>
+            <field name="occupation">Software Engineer</field>
+        </record>
+
+        <!-- Students -->
+        <record id="demo_student_alice" model="school.student">
+            <field name="name">Alice Smith</field>
+            <field name="email">alice.smith@student.edu</field>
+            <field name="phone">+1 555 4321</field>
+            <field name="roll_number">10A-01</field>
+            <field name="date_of_birth">2010-05-15</field>
+            <field name="gender">female</field>
+            <field name="blood_group">a+</field>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="primary_parent_id" ref="demo_parent_robert"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+
+        <record id="demo_student_charlie" model="school.student">
+            <field name="name">Charlie Smith</field>
+            <field name="email">charlie.smith@student.edu</field>
+            <field name="phone">+1 555 4322</field>
+            <field name="roll_number">10A-02</field>
+            <field name="date_of_birth">2010-08-20</field>
+            <field name="gender">male</field>
+            <field name="blood_group">o+</field>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="primary_parent_id" ref="demo_parent_robert"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+
+        <!-- Fee Heads -->
+        <record id="demo_fee_tuition" model="school.fee.head">
+            <field name="name">Tuition Fee</field>
+            <field name="code">TUIT</field>
+        </record>
+
+        <record id="demo_fee_exam" model="school.fee.head">
+            <field name="name">Examination Fee</field>
+            <field name="code">EXAM</field>
+        </record>
+
+        <record id="demo_fee_lab" model="school.fee.head">
+            <field name="name">Computer &amp; Science Lab Fee</field>
+            <field name="code">LAB</field>
+        </record>
+
+        <!-- Fee Structure -->
+        <record id="demo_fee_struct_10" model="school.fee.structure">
+            <field name="name">Grade 10 Standard Fee Structure</field>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="line_ids" eval="[
+                (0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1200.0}),
+                (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 150.0}),
+                (0, 0, {'fee_head_id': ref('demo_fee_lab'), 'amount': 200.0})
+            ]"/>
+        </record>
+
+        <!-- Student Fee Invoice -->
+        <record id="demo_student_fee_alice" model="school.student.fee">
+            <field name="student_id" ref="demo_student_alice"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_invoice">2026-04-05</field>
+            <field name="date_due">2026-05-05</field>
+            <field name="state">posted</field>
+            <field name="line_ids" eval="[
+                (0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1200.0}),
+                (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 150.0}),
+                (0, 0, {'fee_head_id': ref('demo_fee_lab'), 'amount': 200.0})
+            ]"/>
+        </record>
+
+        <!-- Exam -->
+        <record id="demo_exam_midterm" model="school.exam">
+            <field name="name">Midterm Assessment 2026</field>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="term_id" ref="demo_term_1"/>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="date_start">2026-09-10</field>
+            <field name="date_end">2026-09-20</field>
+            <field name="state">completed</field>
+        </record>
+
+        <!-- Exam Result -->
+        <record id="demo_exam_result_alice" model="school.exam.result">
+            <field name="exam_id" ref="demo_exam_midterm"/>
+            <field name="student_id" ref="demo_student_alice"/>
+            <field name="teacher_comments">Alice performed brilliantly across all science and math subjects.</field>
+            <field name="line_ids" eval="[
+                (0, 0, {'subject_id': ref('demo_subject_math'), 'max_marks': 100, 'pass_marks': 40, 'obtained_marks': 95}),
+                (0, 0, {'subject_id': ref('demo_subject_physics'), 'max_marks': 100, 'pass_marks': 40, 'obtained_marks': 88}),
+                (0, 0, {'subject_id': ref('demo_subject_english'), 'max_marks': 100, 'pass_marks': 40, 'obtained_marks': 92}),
+                (0, 0, {'subject_id': ref('demo_subject_cs'), 'max_marks': 100, 'pass_marks': 40, 'obtained_marks': 98})
+            ]"/>
+        </record>
+
+        <!-- Library Book -->
+        <record id="demo_book_python" model="school.library.book">
+            <field name="name">Learning Python, 5th Edition</field>
+            <field name="author">Mark Lutz</field>
+            <field name="isbn">978-1449355739</field>
+            <field name="category">textbook</field>
+            <field name="total_copies">5</field>
+        </record>
+
+        <record id="demo_library_issue_alice" model="school.library.issue">
+            <field name="book_id" ref="demo_book_python"/>
+            <field name="student_id" ref="demo_student_alice"/>
+            <field name="date_issue">2026-08-01</field>
+            <field name="date_due">2026-08-15</field>
+            <field name="state">issued</field>
+        </record>
+    </data>
+</odoo>

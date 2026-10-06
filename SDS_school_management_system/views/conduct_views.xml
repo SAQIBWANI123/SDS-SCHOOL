@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_school_student_conduct_list" model="ir.ui.view">
+        <field name="name">school.student.conduct.list</field>
+        <field name="model">school.student.conduct</field>
+        <field name="arch" type="xml">
+            <list string="Conduct &amp; Achievements"
+                  decoration-success="type in ('achievement', 'commendation')"
+                  decoration-danger="type in ('warning', 'incident')">
+                <field name="date"/>
+                <field name="student_id"/>
+                <field name="class_id"/>
+                <field name="type" widget="badge"/>
+                <field name="name"/>
+                <field name="points" sum="Net points"/>
+                <field name="recorded_by_id" optional="hide"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_student_conduct_form" model="ir.ui.view">
+        <field name="name">school.student.conduct.form</field>
+        <field name="model">school.student.conduct</field>
+        <field name="arch" type="xml">
+            <form string="Conduct Entry">
+                <sheet>
+                    <div class="oe_title"><h1><field name="name" placeholder="e.g. Won the inter-school science fair"/></h1></div>
+                    <group>
+                        <group>
+                            <field name="student_id"/>
+                            <field name="class_id"/>
+                            <field name="type"/>
+                        </group>
+                        <group>
+                            <field name="date"/>
+                            <field name="points"/>
+                            <field name="recorded_by_id"/>
+                        </group>
+                    </group>
+                    <field name="description" placeholder="Details..."/>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="view_school_student_conduct_search" model="ir.ui.view">
+        <field name="name">school.student.conduct.search</field>
+        <field name="model">school.student.conduct</field>
+        <field name="arch" type="xml">
+            <search>
+                <field name="name"/>
+                <field name="student_id"/>
+                <field name="class_id"/>
+                <filter name="positive" string="Achievements &amp; Commendations" domain="[('type', 'in', ('achievement', 'commendation'))]"/>
+                <filter name="concerns" string="Warnings &amp; Incidents" domain="[('type', 'in', ('warning', 'incident'))]"/>
+                <group>
+                    <filter name="group_type" string="Type" context="{'group_by': 'type'}"/>
+                    <filter name="group_student" string="Student" context="{'group_by': 'student_id'}"/>
+                </group>
+            </search>
+        </field>
+    </record>
+
+    <record id="action_school_student_conduct" model="ir.actions.act_window">
+        <field name="name">Conduct &amp; Achievements</field>
+        <field name="res_model">school.student.conduct</field>
+        <field name="view_mode">list,form</field>
+        <field name="search_view_id" ref="view_school_student_conduct_search"/>
+    </record>
+
+    <menuitem id="menu_school_student_conduct"
+              name="Conduct &amp; Achievements"
+              parent="menu_school_students_root"
+              action="action_school_student_conduct"
+              sequence="30"/>
+</odoo>

@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <record id="demo_class_9a" model="school.class">
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="section">A</field>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="class_teacher_id" ref="demo_teacher_margaret"/>
+            <field name="room_number">Room 105</field>
+            <field name="capacity">30</field>
+        </record>
+        <record id="demo_student_x1" model="school.student">
+            <field name="name">Sofia Martinez</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=15, months=1, days=3)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x2" model="school.student">
+            <field name="name">Liam Johnson</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() + relativedelta(days=3, years=-15)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x3" model="school.student">
+            <field name="name">Aisha Khan</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=15, months=3, days=9)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x4" model="school.student">
+            <field name="name">Noah Williams</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=15, months=4, days=12)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x5" model="school.student">
+            <field name="name">Emma Brown</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=15, months=5, days=15)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x6" model="school.student">
+            <field name="name">Ethan Davis</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=15, months=6, days=18)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x7" model="school.student">
+            <field name="name">Olivia Garcia</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=7, days=21)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x8" model="school.student">
+            <field name="name">Mason Lee</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=8, days=24)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x9" model="school.student">
+            <field name="name">Zara Ahmed</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=9, days=27)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x10" model="school.student">
+            <field name="name">Lucas Wilson</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=10, days=30)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x11" model="school.student">
+            <field name="name">Mia Anderson</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=11, days=33)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_student_x12" model="school.student">
+            <field name="name">Daniel Thomas</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=12, days=36)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="parent_ids" eval="[(4, ref('demo_parent_robert'))]"/>
+            <field name="state">enrolled</field>
+        </record>
+        <record id="demo_teacher_grace" model="school.teacher">
+            <field name="name">Ms. Grace Hopper</field>
+            <field name="email">grace.h@school.edu</field>
+            <field name="qualification">M.Sc. Computer Science</field>
+            <field name="specialization">Computer Science</field>
+            <field name="subject_ids" eval="[(4, ref('demo_subject_cs'))]"/>
+        </record>
+        <record id="demo_attendance_10a_0" model="school.attendance">
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="teacher_id" ref="demo_teacher_alan"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=0)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_alice'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x1'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x2'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x3'), 'absence_reason': 'Sick leave', 'state': 'absent'}), (0, 0, {'student_id': ref('demo_student_x4'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x5'), 'state': 'late'}), (0, 0, {'student_id': ref('demo_student_x6'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_10a_1" model="school.attendance">
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="teacher_id" ref="demo_teacher_alan"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-1)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_alice'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x1'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x2'), 'absence_reason': 'Sick leave', 'state': 'absent'}), (0, 0, {'student_id': ref('demo_student_x3'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x4'), 'state': 'late'}), (0, 0, {'student_id': ref('demo_student_x5'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x6'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_10a_2" model="school.attendance">
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="teacher_id" ref="demo_teacher_alan"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-2)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_alice'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x1'), 'absence_reason': 'Sick leave', 'state': 'absent'}), (0, 0, {'student_id': ref('demo_student_x2'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x3'), 'state': 'late'}), (0, 0, {'student_id': ref('demo_student_x4'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x5'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x6'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_10a_3" model="school.attendance">
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="teacher_id" ref="demo_teacher_alan"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-3)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_alice'), 'absence_reason': 'Sick leave', 'state': 'absent'}), (0, 0, {'student_id': ref('demo_student_x1'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x2'), 'state': 'late'}), (0, 0, {'student_id': ref('demo_student_x3'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x4'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x5'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x6'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_10a_4" model="school.attendance">
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="teacher_id" ref="demo_teacher_alan"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-4)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_alice'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x1'), 'state': 'late'}), (0, 0, {'student_id': ref('demo_student_x2'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x3'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x4'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x5'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x6'), 'absence_reason': 'Sick leave', 'state': 'absent'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_10a_5" model="school.attendance">
+            <field name="class_id" ref="demo_class_10a"/>
+            <field name="teacher_id" ref="demo_teacher_alan"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-5)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_alice'), 'state': 'late'}), (0, 0, {'student_id': ref('demo_student_x1'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x2'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x3'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x4'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x5'), 'absence_reason': 'Sick leave', 'state': 'absent'}), (0, 0, {'student_id': ref('demo_student_x6'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_9a_0" model="school.attendance">
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="teacher_id" ref="demo_teacher_margaret"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=0)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_x7'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x8'), 'absence_reason': 'Family event', 'state': 'absent'}), (0, 0, {'student_id': ref('demo_student_x9'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x10'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x11'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x12'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_9a_1" model="school.attendance">
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="teacher_id" ref="demo_teacher_margaret"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-1)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_x7'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x8'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x9'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x10'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x11'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x12'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_9a_2" model="school.attendance">
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="teacher_id" ref="demo_teacher_margaret"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-2)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_x7'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x8'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x9'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x10'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x11'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x12'), 'absence_reason': 'Family event', 'state': 'absent'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_9a_3" model="school.attendance">
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="teacher_id" ref="demo_teacher_margaret"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-3)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_x7'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x8'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x9'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x10'), 'absence_reason': 'Family event', 'state': 'absent'}), (0, 0, {'student_id': ref('demo_student_x11'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x12'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_9a_4" model="school.attendance">
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="teacher_id" ref="demo_teacher_margaret"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-4)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_x7'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x8'), 'absence_reason': 'Family event', 'state': 'absent'}), (0, 0, {'student_id': ref('demo_student_x9'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x10'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x11'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x12'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_attendance_9a_5" model="school.attendance">
+            <field name="class_id" ref="demo_class_9a"/>
+            <field name="teacher_id" ref="demo_teacher_margaret"/>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-5)).strftime('%Y-%m-%d')"/>
+            <field name="line_ids" eval="[(0, 0, {'student_id': ref('demo_student_x7'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x8'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x9'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x10'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x11'), 'state': 'present'}), (0, 0, {'student_id': ref('demo_student_x12'), 'state': 'present'})]"/>
+            <field name="state">done</field>
+        </record>
+        <record id="demo_fee_struct_9" model="school.fee.structure">
+            <field name="name">Grade 9 Standard Fee Structure</field>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="line_ids" eval="[
+                (0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1100.0}),
+                (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 120.0})
+            ]"/>
+        </record>
+        <record id="demo_fee_x1" model="school.student.fee">
+            <field name="structure_id" ref="demo_fee_struct_10"/>
+            <field name="student_id" ref="demo_student_x1"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_invoice" eval="(DateTime.today() + relativedelta(days=-150)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=-120)).strftime('%Y-%m-%d')"/>
+            <field name="state">posted</field>
+            <field name="line_ids" eval="[(0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1200.0}), (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 150.0})]"/>
+        </record>
+        <record id="demo_fee_x2" model="school.student.fee">
+            <field name="structure_id" ref="demo_fee_struct_10"/>
+            <field name="student_id" ref="demo_student_x2"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_invoice" eval="(DateTime.today() + relativedelta(days=-100)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=-70)).strftime('%Y-%m-%d')"/>
+            <field name="state">posted</field>
+            <field name="line_ids" eval="[(0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1200.0}), (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 150.0})]"/>
+        </record>
+        <record id="demo_fee_x3" model="school.student.fee">
+            <field name="structure_id" ref="demo_fee_struct_10"/>
+            <field name="student_id" ref="demo_student_x3"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_invoice" eval="(DateTime.today() + relativedelta(days=-60)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=-25)).strftime('%Y-%m-%d')"/>
+            <field name="state">posted</field>
+            <field name="line_ids" eval="[(0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1200.0}), (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 150.0})]"/>
+        </record>
+        <record id="demo_fee_x4" model="school.student.fee">
+            <field name="structure_id" ref="demo_fee_struct_10"/>
+            <field name="student_id" ref="demo_student_x4"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_invoice" eval="(DateTime.today() + relativedelta(days=-20)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=10)).strftime('%Y-%m-%d')"/>
+            <field name="state">posted</field>
+            <field name="line_ids" eval="[(0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1200.0}), (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 150.0})]"/>
+        </record>
+        <record id="demo_fee_x5" model="school.student.fee">
+            <field name="structure_id" ref="demo_fee_struct_9"/>
+            <field name="student_id" ref="demo_student_x7"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_invoice" eval="(DateTime.today() + relativedelta(days=-140)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=-110)).strftime('%Y-%m-%d')"/>
+            <field name="state">posted</field>
+            <field name="line_ids" eval="[(0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1100.0}), (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 120.0})]"/>
+        </record>
+        <record id="demo_fee_x6" model="school.student.fee">
+            <field name="structure_id" ref="demo_fee_struct_9"/>
+            <field name="student_id" ref="demo_student_x8"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_invoice" eval="(DateTime.today() + relativedelta(days=-90)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=-60)).strftime('%Y-%m-%d')"/>
+            <field name="state">posted</field>
+            <field name="line_ids" eval="[(0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1100.0}), (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 120.0})]"/>
+        </record>
+        <record id="demo_fee_x7" model="school.student.fee">
+            <field name="structure_id" ref="demo_fee_struct_9"/>
+            <field name="student_id" ref="demo_student_x9"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_invoice" eval="(DateTime.today() + relativedelta(days=-30)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=-5)).strftime('%Y-%m-%d')"/>
+            <field name="state">posted</field>
+            <field name="line_ids" eval="[(0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1100.0}), (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 120.0})]"/>
+        </record>
+        <record id="demo_fee_x8" model="school.student.fee">
+            <field name="structure_id" ref="demo_fee_struct_9"/>
+            <field name="student_id" ref="demo_student_x10"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="date_invoice" eval="(DateTime.today() + relativedelta(days=-10)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=20)).strftime('%Y-%m-%d')"/>
+            <field name="state">posted</field>
+            <field name="line_ids" eval="[(0, 0, {'fee_head_id': ref('demo_fee_tuition'), 'amount': 1100.0}), (0, 0, {'fee_head_id': ref('demo_fee_exam'), 'amount': 120.0})]"/>
+        </record>
+        <record id="demo_pay_x1" model="school.fee.payment">
+            <field name="fee_id" ref="demo_fee_x1"/>
+            <field name="amount">1350.0</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-118)).strftime('%Y-%m-%d')"/>
+            <field name="method">bank</field>
+        </record>
+        <record id="demo_pay_x2" model="school.fee.payment">
+            <field name="fee_id" ref="demo_fee_x2"/>
+            <field name="amount">700.0</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-65)).strftime('%Y-%m-%d')"/>
+            <field name="method">cash</field>
+        </record>
+        <record id="demo_pay_x3" model="school.fee.payment">
+            <field name="fee_id" ref="demo_fee_x3"/>
+            <field name="amount">500.0</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-20)).strftime('%Y-%m-%d')"/>
+            <field name="method">card</field>
+        </record>
+        <record id="demo_pay_x4" model="school.fee.payment">
+            <field name="fee_id" ref="demo_fee_x4"/>
+            <field name="amount">1350.0</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-8)).strftime('%Y-%m-%d')"/>
+            <field name="method">online</field>
+        </record>
+        <record id="demo_pay_x5" model="school.fee.payment">
+            <field name="fee_id" ref="demo_fee_x5"/>
+            <field name="amount">1220.0</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-100)).strftime('%Y-%m-%d')"/>
+            <field name="method">cash</field>
+        </record>
+        <record id="demo_pay_x6" model="school.fee.payment">
+            <field name="fee_id" ref="demo_fee_x6"/>
+            <field name="amount">600.0</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-50)).strftime('%Y-%m-%d')"/>
+            <field name="method">bank</field>
+        </record>
+        <record id="demo_pay_x7" model="school.fee.payment">
+            <field name="fee_id" ref="demo_fee_x7"/>
+            <field name="amount">300.0</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-3)).strftime('%Y-%m-%d')"/>
+            <field name="method">cash</field>
+        </record>
+        <record id="demo_pay_x8" model="school.fee.payment">
+            <field name="fee_id" ref="demo_fee_x8"/>
+            <field name="amount">1220.0</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-2)).strftime('%Y-%m-%d')"/>
+            <field name="method">online</field>
+        </record>
+        <record id="demo_exam_final" model="school.exam">
+            <field name="name">Final Examination 2026</field>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="term_id" ref="demo_term_2"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="date_start" eval="(DateTime.today() + relativedelta(days=9)).strftime('%Y-%m-%d')"/>
+            <field name="date_end" eval="(DateTime.today() + relativedelta(days=16)).strftime('%Y-%m-%d')"/>
+            <field name="state">draft</field>
+        </record>
+        <record id="demo_admission_x1" model="school.admission">
+            <field name="student_name">Hannah Clarke</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=1)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="guardian_name">Guardian of Hannah</field>
+            <field name="guardian_relation">Parent</field>
+            <field name="guardian_email">parent.1@example.com</field>
+            <field name="guardian_phone">+1 555 0210</field>
+            <field name="state">new</field>
+        </record>
+        <record id="demo_admission_x2" model="school.admission">
+            <field name="student_name">Oscar Reyes</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=2)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="guardian_name">Guardian of Oscar</field>
+            <field name="guardian_relation">Parent</field>
+            <field name="guardian_email">parent.2@example.com</field>
+            <field name="guardian_phone">+1 555 0220</field>
+            <field name="state">review</field>
+        </record>
+        <record id="demo_admission_x3" model="school.admission">
+            <field name="student_name">Priya Sharma</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=3)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="guardian_name">Guardian of Priya</field>
+            <field name="guardian_relation">Parent</field>
+            <field name="guardian_email">parent.3@example.com</field>
+            <field name="guardian_phone">+1 555 0230</field>
+            <field name="state">waitlist</field>
+        </record>
+        <record id="demo_admission_x4" model="school.admission">
+            <field name="student_name">Leo Fischer</field>
+            <field name="gender">male</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=4)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_9"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="guardian_name">Guardian of Leo</field>
+            <field name="guardian_relation">Parent</field>
+            <field name="guardian_email">parent.4@example.com</field>
+            <field name="guardian_phone">+1 555 0240</field>
+            <field name="state">new</field>
+        </record>
+        <record id="demo_admission_x5" model="school.admission">
+            <field name="student_name">Chloe Dubois</field>
+            <field name="gender">female</field>
+            <field name="date_of_birth" eval="(DateTime.today() - relativedelta(years=14, months=5)).strftime('%Y-%m-%d')"/>
+            <field name="grade_id" ref="demo_grade_10"/>
+            <field name="academic_year_id" ref="demo_academic_year_2026"/>
+            <field name="guardian_name">Guardian of Chloe</field>
+            <field name="guardian_relation">Parent</field>
+            <field name="guardian_email">parent.5@example.com</field>
+            <field name="guardian_phone">+1 555 0250</field>
+            <field name="state">review</field>
+        </record>
+        <record id="demo_notice_x1" model="school.notice">
+            <field name="name">Parent-Teacher Meeting this Friday</field>
+            <field name="priority">important</field>
+            <field name="pinned" eval="True"/>
+            <field name="body"><![CDATA[<p>All parents are invited to meet class teachers between 9:00 and 13:00. Please bring the student diary.</p>]]></field>
+            <field name="date_publish" eval="(DateTime.today() + relativedelta(days=0)).strftime('%Y-%m-%d')"/>
+            <field name="state">published</field>
+        </record>
+        <record id="demo_notice_x2" model="school.notice">
+            <field name="name">School closed on public holiday</field>
+            <field name="priority">normal</field>
+            <field name="pinned" eval="False"/>
+            <field name="body"><![CDATA[<p>The school will remain closed on Monday. Regular classes resume on Tuesday.</p>]]></field>
+            <field name="date_publish" eval="(DateTime.today() + relativedelta(days=-1)).strftime('%Y-%m-%d')"/>
+            <field name="state">published</field>
+        </record>
+        <record id="demo_notice_x3" model="school.notice">
+            <field name="name">Annual Sports Day registrations open</field>
+            <field name="priority">urgent</field>
+            <field name="pinned" eval="False"/>
+            <field name="body"><![CDATA[<p>Register your child with the sports teacher before the end of the week.</p>]]></field>
+            <field name="date_publish" eval="(DateTime.today() + relativedelta(days=-2)).strftime('%Y-%m-%d')"/>
+            <field name="state">published</field>
+        </record>
+        <record id="demo_conduct_x1" model="school.student.conduct">
+            <field name="student_id" ref="demo_student_x1"/>
+            <field name="name">Won the inter-school science fair</field>
+            <field name="type">achievement</field>
+            <field name="points">10</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=0)).strftime('%Y-%m-%d')"/>
+        </record>
+        <record id="demo_conduct_x2" model="school.student.conduct">
+            <field name="student_id" ref="demo_student_x2"/>
+            <field name="name">Class monitor of the month</field>
+            <field name="type">commendation</field>
+            <field name="points">5</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-4)).strftime('%Y-%m-%d')"/>
+        </record>
+        <record id="demo_conduct_x3" model="school.student.conduct">
+            <field name="student_id" ref="demo_student_x3"/>
+            <field name="name">Late submission of project</field>
+            <field name="type">warning</field>
+            <field name="points">-3</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-8)).strftime('%Y-%m-%d')"/>
+        </record>
+        <record id="demo_conduct_x4" model="school.student.conduct">
+            <field name="student_id" ref="demo_student_x4"/>
+            <field name="name">Excellent teamwork in robotics club</field>
+            <field name="type">achievement</field>
+            <field name="points">8</field>
+            <field name="date" eval="(DateTime.today() + relativedelta(days=-12)).strftime('%Y-%m-%d')"/>
+        </record>
+        <record id="demo_book_x1" model="school.library.book">
+            <field name="name">Introduction to Algorithms</field>
+            <field name="author">Cormen et al.</field>
+            <field name="category">textbook</field>
+            <field name="total_copies">3</field>
+        </record>
+        <record id="demo_book_x2" model="school.library.book">
+            <field name="name">The Selfish Gene</field>
+            <field name="author">Richard Dawkins</field>
+            <field name="category">nonfiction</field>
+            <field name="total_copies">2</field>
+        </record>
+        <record id="demo_book_x3" model="school.library.book">
+            <field name="name">To Kill a Mockingbird</field>
+            <field name="author">Harper Lee</field>
+            <field name="category">fiction</field>
+            <field name="total_copies">4</field>
+        </record>
+        <record id="demo_issue_x1" model="school.library.issue">
+            <field name="book_id" ref="demo_book_x1"/>
+            <field name="student_id" ref="demo_student_x2"/>
+            <field name="date_issue" eval="(DateTime.today() + relativedelta(days=-5)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=9)).strftime('%Y-%m-%d')"/>
+        </record>
+        <record id="demo_issue_x2" model="school.library.issue">
+            <field name="book_id" ref="demo_book_x2"/>
+            <field name="student_id" ref="demo_student_x3"/>
+            <field name="date_issue" eval="(DateTime.today() + relativedelta(days=-3)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=11)).strftime('%Y-%m-%d')"/>
+        </record>
+        <record id="demo_issue_x3" model="school.library.issue">
+            <field name="book_id" ref="demo_book_x3"/>
+            <field name="student_id" ref="demo_student_x5"/>
+            <field name="date_issue" eval="(DateTime.today() + relativedelta(days=-20)).strftime('%Y-%m-%d')"/>
+            <field name="date_due" eval="(DateTime.today() + relativedelta(days=-6)).strftime('%Y-%m-%d')"/>
+        </record>
+    </data>
+</odoo>

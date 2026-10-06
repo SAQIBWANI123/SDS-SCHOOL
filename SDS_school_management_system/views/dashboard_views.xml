@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- ================= ANALYTICS VIEWS ================= -->
+    <record id="view_school_student_graph" model="ir.ui.view">
+        <field name="name">school.student.graph</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <graph string="Student Enrollment by Grade" type="pie">
+                <field name="grade_id"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_school_student_pivot" model="ir.ui.view">
+        <field name="name">school.student.pivot</field>
+        <field name="model">school.student</field>
+        <field name="arch" type="xml">
+            <pivot string="Student Demographics">
+                <field name="grade_id" type="row"/>
+                <field name="gender" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_school_fee_graph" model="ir.ui.view">
+        <field name="name">school.student.fee.graph</field>
+        <field name="model">school.student.fee</field>
+        <field name="arch" type="xml">
+            <graph string="Fee Billing vs Collection" type="bar">
+                <field name="class_id"/>
+                <field name="amount_total" type="measure"/>
+                <field name="amount_paid" type="measure"/>
+                <field name="amount_due" type="measure"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_school_fee_pivot" model="ir.ui.view">
+        <field name="name">school.student.fee.pivot</field>
+        <field name="model">school.student.fee</field>
+        <field name="arch" type="xml">
+            <pivot string="Fee Collection Matrix">
+                <field name="academic_year_id" type="row"/>
+                <field name="state" type="col"/>
+                <field name="amount_total" type="measure"/>
+                <field name="amount_paid" type="measure"/>
+                <field name="amount_due" type="measure"/>
+            </pivot>
+        </field>
+    </record>
+
+    <record id="view_school_attendance_line_graph" model="ir.ui.view">
+        <field name="name">school.attendance.line.graph</field>
+        <field name="model">school.attendance.line</field>
+        <field name="arch" type="xml">
+            <graph string="Attendance by Day" type="bar" stacked="True">
+                <field name="date" interval="day"/>
+                <field name="state"/>
+            </graph>
+        </field>
+    </record>
+
+    <record id="view_school_attendance_line_pivot" model="ir.ui.view">
+        <field name="name">school.attendance.line.pivot</field>
+        <field name="model">school.attendance.line</field>
+        <field name="arch" type="xml">
+            <pivot string="Attendance Matrix">
+                <field name="class_id" type="row"/>
+                <field name="state" type="col"/>
+            </pivot>
+        </field>
+    </record>
+
+    <!-- ================= DASHBOARD CLIENT ACTION ================= -->
+    <record id="action_school_dashboard" model="ir.actions.client">
+        <field name="name">CampusPulse Dashboard</field>
+        <field name="tag">school_management_dashboard</field>
+    </record>
+
+    <record id="menu_school_dashboard" model="ir.ui.menu">
+        <field name="action" ref="action_school_dashboard"/>
+    </record>
+
+    <!-- ================= REPORT ACTIONS & MENUS ================= -->
+    <record id="action_school_dashboard_students" model="ir.actions.act_window">
+        <field name="name">Student Analytics</field>
+        <field name="res_model">school.student</field>
+        <field name="view_mode">graph,pivot,kanban,list</field>
+        <field name="view_id" ref="view_school_student_graph"/>
+    </record>
+
+    <record id="action_school_dashboard_fees" model="ir.actions.act_window">
+        <field name="name">Fee Analytics</field>
+        <field name="res_model">school.student.fee</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="view_id" ref="view_school_fee_graph"/>
+    </record>
+
+    <record id="action_school_dashboard_attendance" model="ir.actions.act_window">
+        <field name="name">Attendance Analytics</field>
+        <field name="res_model">school.attendance.line</field>
+        <field name="view_mode">graph,pivot,list</field>
+        <field name="view_id" ref="view_school_attendance_line_graph"/>
+    </record>
+
+    <menuitem id="menu_school_dashboard_students" name="Student Analytics"
+              parent="menu_school_reports_root" action="action_school_dashboard_students" sequence="1"/>
+    <menuitem id="menu_school_dashboard_fees" name="Fee Analytics"
+              parent="menu_school_reports_root" action="action_school_dashboard_fees" sequence="2"/>
+    <menuitem id="menu_school_dashboard_attendance" name="Attendance Analytics"
+              parent="menu_school_reports_root" action="action_school_dashboard_attendance" sequence="3"/>
+</odoo>

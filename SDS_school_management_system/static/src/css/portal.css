@@ -1,0 +1,570 @@
+/* ============================================================
+   SDS School Management – Portal Styles
+   Loaded via web.assets_frontend so it applies on ALL portal
+   pages: admission form, fee list, fee detail, student pages.
+   ============================================================ */
+
+:root {
+  --sds-indigo: #0d9488;
+  --sds-indigo-dk: #065f46;
+  --sds-indigo-lt: #ecfdf5;
+  --sds-teal: #10b981;
+  --sds-teal-dk: #0f766e;
+  --sds-teal-lt: #f0fdfa;
+  --sds-amber: #f59e0b;
+  --sds-amber-dk: #b45309;
+  --sds-amber-lt: #fffbeb;
+  --sds-rose: #f43f5e;
+  --sds-rose-dk: #be123c;
+  --sds-rose-lt: #fff1f2;
+  --sds-blue: #3b82f6;
+  --sds-blue-lt: #eff6ff;
+  --sds-green: #22c55e;
+  --sds-green-lt: #f0fdf4;
+  --sds-ink: #0f172a;
+  --sds-muted: #64748b;
+  --sds-line: #e2e8f0;
+  --sds-surface: #fff;
+  --sds-bg: #f8fafc;
+  --sds-r: 14px;
+  --sds-r-sm: 8px;
+  --sds-shadow: 0 4px 20px rgba(15,25,35,.08);
+  --sds-shadow-md: 0 8px 32px rgba(15,25,35,.13);
+}
+
+/* ── Reset ── */
+.sds_portal_wrap * { box-sizing: border-box; }
+.sds_portal_wrap {
+  font-family: "Inter", "Segoe UI", system-ui, sans-serif;
+  color: var(--sds-ink);
+}
+
+/* ────────────────────────────────────────────────
+   HERO BANNER
+   ──────────────────────────────────────────────── */
+.sds_hero {
+  background: linear-gradient(135deg, #053b30 0%, #0a6b57 55%, #14a37f 100%);
+  border-radius: var(--sds-r);
+  padding: 40px 36px;
+  color: #fff;
+  margin-bottom: 28px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(79,70,229,.25);
+}
+.sds_hero::after {
+  content: "";
+  position: absolute;
+  right: -60px; top: -60px;
+  width: 260px; height: 260px;
+  border: 1.5px solid rgba(255,255,255,.15);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.sds_hero::before {
+  content: "";
+  position: absolute;
+  left: -50px; bottom: -50px;
+  width: 180px; height: 180px;
+  border: 1.5px solid rgba(255,255,255,.1);
+  border-radius: 50%;
+  pointer-events: none;
+}
+.sds_hero_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(255,255,255,.2);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255,255,255,.3);
+  border-radius: 100px;
+  padding: 5px 15px;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: .6px;
+  text-transform: uppercase;
+  margin-bottom: 14px;
+}
+.sds_hero h1 {
+  font-size: clamp(22px, 3vw, 34px);
+  font-weight: 800;
+  margin: 0 0 8px;
+  letter-spacing: -.3px;
+}
+.sds_hero p {
+  margin: 0;
+  opacity: .88;
+  font-size: 14px;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* ────────────────────────────────────────────────
+   STAT CARDS ROW
+   ──────────────────────────────────────────────── */
+.sds_stat_row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 16px;
+  margin-bottom: 24px;
+}
+.sds_stat {
+  background: var(--sds-surface);
+  border: 1px solid var(--sds-line);
+  border-radius: var(--sds-r);
+  padding: 20px 22px;
+  box-shadow: var(--sds-shadow);
+  transition: box-shadow .18s, transform .18s;
+}
+.sds_stat:hover {
+  box-shadow: var(--sds-shadow-md);
+  transform: translateY(-2px);
+}
+.sds_stat_label {
+  font-size: 11px;
+  color: var(--sds-muted);
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.sds_stat_value {
+  font-size: 26px;
+  font-weight: 900;
+  line-height: 1;
+}
+.sds_stat_value.green { color: var(--sds-teal-dk); }
+.sds_stat_value.red   { color: var(--sds-rose-dk); }
+.sds_stat_value.ink   { color: var(--sds-ink); }
+
+/* ────────────────────────────────────────────────
+   CARDS
+   ──────────────────────────────────────────────── */
+.sds_card {
+  background: var(--sds-surface);
+  border: 1px solid var(--sds-line);
+  border-radius: var(--sds-r);
+  padding: 26px;
+  box-shadow: var(--sds-shadow);
+  margin-bottom: 22px;
+  transition: box-shadow .18s;
+  position: relative;
+  overflow: hidden;
+}
+.sds_card::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--sds-indigo), var(--sds-teal));
+  opacity: 0;
+  transition: opacity .18s;
+  border-radius: var(--sds-r) var(--sds-r) 0 0;
+}
+.sds_card:hover { box-shadow: var(--sds-shadow-md); }
+.sds_card:hover::before { opacity: 1; }
+
+.sds_card_head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 22px;
+}
+.sds_card_head h2 { font-size: 17px; font-weight: 700; margin: 0; }
+.sds_eyebrow {
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: var(--sds-indigo);
+  display: block;
+  margin-bottom: 4px;
+}
+
+/* ────────────────────────────────────────────────
+   TABLE
+   ──────────────────────────────────────────────── */
+.sds_tbl {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+.sds_tbl th {
+  padding: 10px 14px;
+  border-bottom: 2px solid var(--sds-line);
+  text-align: left;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: .8px;
+  text-transform: uppercase;
+  color: var(--sds-muted);
+  background: rgba(248,250,252,.7);
+  white-space: nowrap;
+}
+.sds_tbl td {
+  padding: 14px 14px;
+  border-bottom: 1px solid #f1f5f9;
+  vertical-align: middle;
+}
+.sds_tbl tbody tr { transition: background .15s; }
+.sds_tbl tbody tr:hover td { background: #f6faf8; }
+.sds_tbl tbody tr:last-child td { border-bottom: none; }
+.sds_tbl tfoot td,
+.sds_tbl tfoot th {
+  border-top: 2px solid var(--sds-line);
+  font-weight: 700;
+  background: var(--sds-bg);
+}
+
+/* ────────────────────────────────────────────────
+   BADGES
+   ──────────────────────────────────────────────── */
+.sds_badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 11px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.sds_badge::before {
+  content: "";
+  width: 6px; height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+  opacity: .7;
+  flex-shrink: 0;
+}
+.sds_badge_draft       { background: #f1f5f9; color: var(--sds-muted); }
+.sds_badge_posted      { background: var(--sds-blue-lt); color: #1d4ed8; }
+.sds_badge_paid        { background: var(--sds-teal-lt); color: var(--sds-teal-dk); }
+.sds_badge_partial,
+.sds_badge_partially_paid { background: var(--sds-amber-lt); color: var(--sds-amber-dk); }
+.sds_badge_cancelled   { background: var(--sds-rose-lt); color: var(--sds-rose-dk); }
+.sds_badge_new         { background: var(--sds-amber-lt); color: var(--sds-amber-dk); }
+.sds_badge_review      { background: var(--sds-blue-lt); color: #1d4ed8; }
+.sds_badge_approved    { background: var(--sds-teal-lt); color: var(--sds-teal-dk); }
+.sds_badge_rejected    { background: var(--sds-rose-lt); color: var(--sds-rose-dk); }
+
+/* Attendance pills */
+.sds_att_pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  padding: 4px 10px;
+  border-radius: 100px;
+  font-size: 11px;
+  font-weight: 700;
+}
+.sds_att_present { background: var(--sds-green-lt); color: #15803d; }
+.sds_att_absent  { background: var(--sds-rose-lt);  color: var(--sds-rose-dk); }
+.sds_att_late    { background: var(--sds-amber-lt); color: var(--sds-amber-dk); }
+
+/* ────────────────────────────────────────────────
+   BUTTONS
+   ──────────────────────────────────────────────── */
+.sds_btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding: 10px 20px;
+  border-radius: var(--sds-r-sm);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none !important;
+  border: none;
+  transition: all .18s;
+  white-space: nowrap;
+}
+.sds_btn_primary {
+  background: linear-gradient(135deg, var(--sds-indigo), #10b981);
+  color: #fff !important;
+  box-shadow: 0 4px 14px rgba(79,70,229,.3);
+}
+.sds_btn_primary:hover {
+  background: linear-gradient(135deg, var(--sds-indigo-dk), var(--sds-indigo));
+  color: #fff !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 22px rgba(79,70,229,.4);
+}
+.sds_btn_outline {
+  background: #fff;
+  border: 1.5px solid var(--sds-line);
+  color: var(--sds-ink) !important;
+}
+.sds_btn_outline:hover {
+  border-color: var(--sds-indigo);
+  color: var(--sds-indigo) !important;
+  background: var(--sds-indigo-lt);
+}
+.sds_btn_sm { padding: 7px 14px; font-size: 12px; }
+
+/* ────────────────────────────────────────────────
+   FORM
+   ──────────────────────────────────────────────── */
+.sds_form_section { margin-bottom: 30px; }
+.sds_section_title {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--sds-indigo);
+  letter-spacing: .3px;
+  margin: 0 0 18px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--sds-line);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.sds_form_label {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--sds-ink);
+  display: block;
+  margin-bottom: 6px;
+}
+.sds_form_label .req { color: var(--sds-rose); }
+.sds_input,
+.sds_select,
+.sds_textarea {
+  width: 100%;
+  padding: 10px 13px;
+  border: 1.5px solid var(--sds-line);
+  border-radius: var(--sds-r-sm);
+  font-size: 13px;
+  color: var(--sds-ink);
+  background: var(--sds-surface);
+  transition: border-color .18s, box-shadow .18s;
+  outline: none;
+  font-family: inherit;
+}
+.sds_input:focus,
+.sds_select:focus,
+.sds_textarea:focus {
+  border-color: var(--sds-indigo);
+  box-shadow: 0 0 0 3px rgba(79,70,229,.12);
+}
+.sds_textarea { resize: vertical; min-height: 80px; }
+.sds_hint { font-size: 11px; color: var(--sds-muted); margin-top: 5px; display: block; }
+
+/* ────────────────────────────────────────────────
+   STUDENT CARDS
+   ──────────────────────────────────────────────── */
+.sds_student_grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+}
+.sds_student_card {
+  background: var(--sds-surface);
+  border: 1px solid var(--sds-line);
+  border-radius: var(--sds-r);
+  padding: 24px;
+  box-shadow: var(--sds-shadow);
+  transition: box-shadow .18s, transform .18s;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.sds_student_card:hover {
+  box-shadow: var(--sds-shadow-md);
+  transform: translateY(-3px);
+}
+.sds_student_avatar {
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--sds-indigo), var(--sds-teal));
+  color: #fff;
+  font-size: 22px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(79,70,229,.3);
+  flex-shrink: 0;
+}
+.sds_student_name { font-size: 16px; font-weight: 700; margin: 0; }
+.sds_student_meta { font-size: 12px; color: var(--sds-muted); }
+
+/* ────────────────────────────────────────────────
+   INFO GRID (detail page tiles)
+   ──────────────────────────────────────────────── */
+.sds_info_grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+  margin-bottom: 22px;
+}
+.sds_info_item {
+  background: var(--sds-bg);
+  border: 1px solid var(--sds-line);
+  border-radius: var(--sds-r-sm);
+  padding: 14px 16px;
+}
+.sds_info_item .label {
+  font-size: 11px;
+  color: var(--sds-muted);
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: .5px;
+  margin-bottom: 4px;
+  display: block;
+}
+.sds_info_item .value {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--sds-ink);
+}
+
+/* Transport highlight */
+.sds_transport_card {
+  border-left: 4px solid var(--sds-teal) !important;
+  background: linear-gradient(135deg, #fff, var(--sds-teal-lt)) !important;
+}
+
+/* ────────────────────────────────────────────────
+   ATTENDANCE BAR
+   ──────────────────────────────────────────────── */
+.sds_att_bar_wrap {
+  background: var(--sds-bg);
+  border: 1px solid var(--sds-line);
+  border-radius: var(--sds-r-sm);
+  padding: 16px 18px;
+  margin-bottom: 18px;
+}
+.sds_att_track {
+  height: 10px;
+  border-radius: 100px;
+  background: rgba(244,63,94,.15);
+  overflow: hidden;
+  margin: 8px 0;
+}
+.sds_att_fill {
+  height: 100%;
+  border-radius: 100px;
+  background: linear-gradient(90deg, var(--sds-teal), var(--sds-indigo));
+  transition: width .6s ease;
+  box-shadow: 0 2px 6px rgba(20,184,166,.4);
+}
+
+/* ────────────────────────────────────────────────
+   STUDENT FILTER TABS
+   ──────────────────────────────────────────────── */
+.sds_filter_bar {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  padding: 14px 18px;
+  background: var(--sds-bg);
+  border: 1px solid var(--sds-line);
+  border-radius: var(--sds-r-sm);
+  margin-bottom: 20px;
+}
+.sds_filter_label {
+  font-size: 12px;
+  font-weight: 700;
+  color: var(--sds-muted);
+  white-space: nowrap;
+}
+.sds_filter_btn {
+  padding: 6px 16px;
+  border-radius: 100px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1.5px solid var(--sds-line);
+  background: #fff;
+  color: var(--sds-ink);
+  cursor: pointer;
+  text-decoration: none !important;
+  transition: all .15s;
+  white-space: nowrap;
+}
+.sds_filter_btn:hover,
+.sds_filter_btn.active {
+  background: var(--sds-indigo);
+  border-color: var(--sds-indigo);
+  color: #fff !important;
+}
+
+/* ────────────────────────────────────────────────
+   ALERTS / EMPTY STATES
+   ──────────────────────────────────────────────── */
+.sds_empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--sds-muted);
+  font-size: 13px;
+}
+.sds_empty .fa {
+  font-size: 36px;
+  display: block;
+  margin-bottom: 12px;
+  opacity: .3;
+}
+.sds_alert_success {
+  background: var(--sds-teal-lt);
+  border: 1px solid var(--sds-teal);
+  border-radius: var(--sds-r);
+  padding: 32px;
+  text-align: center;
+  max-width: 680px;
+  margin: 0 auto;
+}
+.sds_alert_success h2 {
+  color: var(--sds-teal-dk);
+  font-size: 24px;
+  margin: 0 0 10px;
+}
+.sds_alert_success p {
+  color: var(--sds-muted);
+  font-size: 14px;
+  margin: 0 0 22px;
+  line-height: 1.6;
+}
+.sds_alert_error {
+  background: var(--sds-rose-lt);
+  border: 1px solid rgba(244,63,94,.4);
+  border-radius: var(--sds-r-sm);
+  padding: 14px 18px;
+  color: var(--sds-rose-dk);
+  font-size: 13px;
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Back link */
+.sds_back {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--sds-indigo);
+  font-size: 13px;
+  font-weight: 600;
+  text-decoration: none !important;
+  margin-bottom: 22px;
+  transition: color .15s;
+}
+.sds_back:hover { color: var(--sds-indigo-dk); }
+
+/* ────────────────────────────────────────────────
+   RESPONSIVE
+   ──────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .sds_stat_row   { grid-template-columns: 1fr 1fr; }
+  .sds_info_grid  { grid-template-columns: 1fr 1fr; }
+  .sds_hero       { padding: 26px 22px; }
+  .sds_card       { padding: 18px; }
+}
+@media (max-width: 480px) {
+  .sds_stat_row        { grid-template-columns: 1fr; }
+  .sds_info_grid       { grid-template-columns: 1fr; }
+  .sds_student_grid    { grid-template-columns: 1fr; }
+}

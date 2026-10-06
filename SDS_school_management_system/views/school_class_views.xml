@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Class List View -->
+    <record id="view_school_class_tree" model="ir.ui.view">
+        <field name="name">school.class.list</field>
+        <field name="model">school.class</field>
+        <field name="arch" type="xml">
+            <list string="Classes / Sections">
+                <field name="name"/>
+                <field name="grade_id"/>
+                <field name="section"/>
+                <field name="academic_year_id"/>
+                <field name="class_teacher_id"/>
+                <field name="room_number"/>
+                <field name="student_count"/>
+                <field name="capacity"/>
+            </list>
+        </field>
+    </record>
+
+    <!-- Class Form View -->
+    <record id="view_school_class_form" model="ir.ui.view">
+        <field name="name">school.class.form</field>
+        <field name="model">school.class</field>
+        <field name="arch" type="xml">
+            <form string="Class / Section">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="grade_id"/>
+                            <field name="section"/>
+                            <field name="academic_year_id"/>
+                        </group>
+                        <group>
+                            <field name="class_teacher_id"/>
+                            <field name="room_number"/>
+                            <field name="capacity"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Enrolled Students">
+                            <field name="student_ids">
+                                <list>
+                                    <field name="student_id_code"/>
+                                    <field name="name"/>
+                                    <field name="roll_number"/>
+                                    <field name="gender"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                        <page string="Subject Teachers Allocation">
+                            <field name="subject_allocation_ids">
+                                <list editable="bottom">
+                                    <field name="subject_id"/>
+                                    <field name="teacher_id"/>
+                                    <field name="weekly_periods"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <!-- Action -->
+    <record id="action_school_class" model="ir.actions.act_window">
+        <field name="name">Classes &amp; Sections</field>
+        <field name="res_model">school.class</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_school_class"
+              name="Classes &amp; Sections"
+              parent="menu_school_academics_root"
+              action="action_school_class"
+              sequence="1"/>
+</odoo>

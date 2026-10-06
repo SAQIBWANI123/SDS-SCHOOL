@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Library Book Views -->
+    <record id="view_school_library_book_tree" model="ir.ui.view">
+        <field name="name">school.library.book.list</field>
+        <field name="model">school.library.book</field>
+        <field name="arch" type="xml">
+            <list string="Library Books">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="isbn"/>
+                <field name="author"/>
+                <field name="publisher"/>
+                <field name="category"/>
+                <field name="total_copies"/>
+                <field name="available_copies"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_library_book_form" model="ir.ui.view">
+        <field name="name">school.library.book.form</field>
+        <field name="model">school.library.book</field>
+        <field name="arch" type="xml">
+            <form string="Library Book">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Book Title"/>
+                        </h1>
+                        <h3>
+                            <field name="code" readonly="1"/>
+                        </h3>
+                    </div>
+                    <group>
+                        <group string="Book Details">
+                            <field name="author"/>
+                            <field name="publisher"/>
+                            <field name="edition"/>
+                            <field name="isbn"/>
+                        </group>
+                        <group string="Inventory &amp; Category">
+                            <field name="category"/>
+                            <field name="total_copies"/>
+                            <field name="available_copies"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Borrowing Log">
+                            <field name="issue_ids" readonly="1">
+                                <list>
+                                    <field name="name"/>
+                                    <field name="student_id"/>
+                                    <field name="date_issue"/>
+                                    <field name="date_due"/>
+                                    <field name="date_return"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_school_library_book" model="ir.actions.act_window">
+        <field name="name">Book Catalog</field>
+        <field name="res_model">school.library.book</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Library Issue Records -->
+    <record id="view_school_library_issue_tree" model="ir.ui.view">
+        <field name="name">school.library.issue.list</field>
+        <field name="model">school.library.issue</field>
+        <field name="arch" type="xml">
+            <list string="Book Circulation / Issues">
+                <field name="name"/>
+                <field name="book_id"/>
+                <field name="student_id"/>
+                <field name="class_id"/>
+                <field name="date_issue"/>
+                <field name="date_due"/>
+                <field name="date_return"/>
+                <field name="fine_amount"/>
+                <field name="state" widget="badge"
+                       decoration-warning="state == 'issued'"
+                       decoration-success="state == 'returned'"
+                       decoration-danger="state == 'overdue'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_library_issue_form" model="ir.ui.view">
+        <field name="name">school.library.issue.form</field>
+        <field name="model">school.library.issue</field>
+        <field name="arch" type="xml">
+            <form string="Book Issue Record">
+                <header>
+                    <button name="action_return_book" string="Return Book" type="object" class="btn-primary" invisible="state == 'returned'"/>
+                    <button name="action_renew" string="Renew (+7 days)" type="object" invisible="state == 'returned'"/>
+                    <field name="state" widget="statusbar" statusbar_visible="issued,overdue,returned"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" readonly="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Circulation Details">
+                            <field name="book_id"/>
+                            <field name="student_id"/>
+                            <field name="class_id"/>
+                        </group>
+                        <group string="Schedule &amp; Fines">
+                            <field name="date_issue"/>
+                            <field name="date_due"/>
+                            <field name="date_return"/>
+                            <field name="renew_count"/>
+                            <field name="days_overdue"/>
+                            <field name="fine_amount"/>
+                        </group>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_school_library_issue" model="ir.actions.act_window">
+        <field name="name">Book Issues &amp; Returns</field>
+        <field name="res_model">school.library.issue</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_school_library_book"
+              name="Library Catalog"
+              parent="menu_school_services_root"
+              action="action_school_library_book"
+              sequence="5"/>
+
+    <menuitem id="menu_school_library_issue"
+              name="Book Issues &amp; Returns"
+              parent="menu_school_services_root"
+              action="action_school_library_issue"
+              sequence="6"/>
+</odoo>

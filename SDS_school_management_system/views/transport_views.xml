@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- Transport Vehicle -->
+    <record id="view_school_transport_vehicle_tree" model="ir.ui.view">
+        <field name="name">school.transport.vehicle.list</field>
+        <field name="model">school.transport.vehicle</field>
+        <field name="arch" type="xml">
+            <list string="Buses &amp; Vehicles">
+                <field name="name"/>
+                <field name="model_name"/>
+                <field name="driver_name"/>
+                <field name="driver_phone"/>
+                <field name="capacity"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_transport_vehicle_form" model="ir.ui.view">
+        <field name="name">school.transport.vehicle.form</field>
+        <field name="model">school.transport.vehicle</field>
+        <field name="arch" type="xml">
+            <form string="Transport Vehicle">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. Bus No. 12 (KA-01-AB-1234)"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="model_name"/>
+                            <field name="capacity"/>
+                        </group>
+                        <group>
+                            <field name="driver_name"/>
+                            <field name="driver_phone"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Assigned Routes">
+                            <field name="route_ids" readonly="1">
+                                <list>
+                                    <field name="code"/>
+                                    <field name="name"/>
+                                    <field name="fare"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_school_transport_vehicle" model="ir.actions.act_window">
+        <field name="name">Transport Vehicles</field>
+        <field name="res_model">school.transport.vehicle</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Transport Route -->
+    <record id="view_school_transport_route_tree" model="ir.ui.view">
+        <field name="name">school.transport.route.list</field>
+        <field name="model">school.transport.route</field>
+        <field name="arch" type="xml">
+            <list string="Transport Routes">
+                <field name="code"/>
+                <field name="name"/>
+                <field name="vehicle_id"/>
+                <field name="fare"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_transport_route_form" model="ir.ui.view">
+        <field name="name">school.transport.route.form</field>
+        <field name="model">school.transport.route</field>
+        <field name="arch" type="xml">
+            <form string="Transport Route">
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="e.g. North City Express Route"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="code"/>
+                            <field name="vehicle_id"/>
+                        </group>
+                        <group>
+                            <field name="fare"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Pickup Points &amp; Route Stops">
+                            <field name="pickup_points" placeholder="List all bus stops and timings..."/>
+                        </page>
+                        <page string="Subscribed Students">
+                            <field name="student_registration_ids">
+                                <list editable="bottom">
+                                    <field name="student_id"/>
+                                    <field name="pickup_point"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_school_transport_route" model="ir.actions.act_window">
+        <field name="name">Transport Routes</field>
+        <field name="res_model">school.transport.route</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <!-- Menus -->
+    <menuitem id="menu_school_transport_route"
+              name="Transport Routes"
+              parent="menu_school_services_root"
+              action="action_school_transport_route"
+              sequence="1"/>
+
+    <menuitem id="menu_school_transport_vehicle"
+              name="Buses &amp; Vehicles"
+              parent="menu_school_services_root"
+              action="action_school_transport_vehicle"
+              sequence="2"/>
+</odoo>

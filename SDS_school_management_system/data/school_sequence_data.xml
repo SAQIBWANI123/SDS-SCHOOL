@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Student Sequence -->
+        <record id="seq_school_admission" model="ir.sequence">
+            <field name="name">Admission Application Sequence</field><field name="code">school.admission</field><field name="prefix">ADM/%(year)s/</field><field name="padding">4</field><field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_school_student" model="ir.sequence">
+            <field name="name">Student Sequence</field>
+            <field name="code">school.student</field>
+            <field name="prefix">STU/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Teacher Sequence -->
+        <record id="seq_school_teacher" model="ir.sequence">
+            <field name="name">Teacher Sequence</field>
+            <field name="code">school.teacher</field>
+            <field name="prefix">TCH/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Grade Sequence -->
+        <record id="seq_school_grade" model="ir.sequence">
+            <field name="name">Grade Sequence</field>
+            <field name="code">school.grade</field>
+            <field name="prefix">GRD/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Exam Sequence -->
+        <record id="seq_school_exam" model="ir.sequence">
+            <field name="name">Exam Sequence</field>
+            <field name="code">school.exam</field>
+            <field name="prefix">EXM/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Fee Invoice Sequence -->
+        <record id="seq_school_student_fee" model="ir.sequence">
+            <field name="name">Student Fee Sequence</field>
+            <field name="code">school.student.fee</field>
+            <field name="prefix">FEE/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Library Book Sequence -->
+        <record id="seq_school_fee_payment" model="ir.sequence">
+            <field name="name">Fee Payment Receipt Sequence</field>
+            <field name="code">school.fee.payment</field>
+            <field name="prefix">RCT/%(year)s/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <record id="seq_school_library_book" model="ir.sequence">
+            <field name="name">Library Book Code Sequence</field>
+            <field name="code">school.library.book</field>
+            <field name="prefix">BK/</field>
+            <field name="padding">5</field>
+            <field name="company_id" eval="False"/>
+        </record>
+
+        <!-- Library Issue Sequence -->
+        <record id="seq_school_library_issue" model="ir.sequence">
+            <field name="name">Library Issue Sequence</field>
+            <field name="code">school.library.issue</field>
+            <field name="prefix">ISS/%(year)s/</field>
+            <field name="padding">4</field>
+            <field name="company_id" eval="False"/>
+        </record>
+    </data>
+</odoo>

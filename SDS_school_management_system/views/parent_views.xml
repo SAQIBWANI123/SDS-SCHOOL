@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_school_parent_tree" model="ir.ui.view">
+        <field name="name">school.parent.list</field>
+        <field name="model">school.parent</field>
+        <field name="arch" type="xml">
+            <list string="Parents / Guardians">
+                <field name="name"/>
+                <field name="relation_type"/>
+                <field name="phone"/>
+                <field name="email"/>
+                <field name="occupation"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_parent_form" model="ir.ui.view">
+        <field name="name">school.parent.form</field>
+        <field name="model">school.parent</field>
+        <field name="arch" type="xml">
+            <form string="Parent / Guardian Profile">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button class="oe_stat_button" icon="fa-child" type="object" name="action_view_children">
+                            <div class="o_field_widget o_stat_info"><span class="o_stat_text">Children</span></div>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-money" type="object" name="action_view_fees">
+                            <div class="o_field_widget o_stat_info"><span class="o_stat_text">Fees</span></div>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-calendar-check-o" type="object" name="action_view_attendance">
+                            <div class="o_field_widget o_stat_info"><span class="o_stat_text">Attendance</span></div>
+                        </button>
+                        <button class="oe_stat_button" icon="fa-graduation-cap" type="object" name="action_view_exam_results">
+                            <div class="o_field_widget o_stat_info"><span class="o_stat_text">Results</span></div>
+                        </button>
+                    </div>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Full Name" required="1"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Guardian Information">
+                            <field name="relation_type"/>
+                            <field name="occupation"/>
+                            <field name="emergency_contact"/>
+                        </group>
+                        <group string="Contact Info">
+                            <field name="phone"/>
+                            <field name="mobile"/>
+                            <field name="email"/>
+                            <field name="user_id"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Children / Wards">
+                            <field name="student_ids">
+                                <list>
+                                    <field name="student_id_code"/>
+                                    <field name="name"/>
+                                    <field name="grade_id"/>
+                                    <field name="class_id"/>
+                                    <field name="state"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_school_parent" model="ir.actions.act_window">
+        <field name="name">Parents / Guardians</field>
+        <field name="res_model">school.parent</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_school_parent"
+              name="Parents &amp; Guardians"
+              parent="menu_school_students_root"
+              action="action_school_parent"
+              sequence="3"/>
+</odoo>

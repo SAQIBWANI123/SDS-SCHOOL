@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_fee_receipt">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center mb-4">
+                            <h2 style="font-weight: bold; color: #064e3b;">SCHOOL FEE RECEIPT / STATEMENT</h2>
+                            <h4 class="text-muted"><t t-out="doc.name"/></h4>
+                        </div>
+
+                        <div class="row mb-4" style="background-color: #f1f6f4; padding: 15px; border-radius: 8px; border: 1px solid #e1ebe7;">
+                            <div class="col-6">
+                                <p><strong>Student Name:</strong> <t t-out="doc.student_id.name"/></p>
+                                <p><strong>Registration ID:</strong> <t t-out="doc.student_id.student_id_code"/></p>
+                                <p><strong>Class:</strong> <t t-out="doc.class_id.name"/></p>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>Invoice Date:</strong> <t t-out="doc.date_invoice"/></p>
+                                <p><strong>Due Date:</strong> <t t-out="doc.date_due"/></p>
+                                <p><strong>Payment Status:</strong> 
+                                    <span t-if="doc.state == 'paid'" class="badge bg-success">FULLY PAID</span>
+                                    <span t-elif="doc.state == 'partially_paid'" class="badge bg-warning">PARTIALLY PAID</span>
+                                    <span t-else="" class="badge bg-secondary"><t t-out="doc.state.upper()"/></span>
+                                </p>
+                            </div>
+                        </div>
+
+                        <table class="table table-bordered table-striped mt-3">
+                            <thead style="background-color: #0a6b57; color: white;">
+                                <tr>
+                                    <th>#</th>
+                                    <th>Fee Description</th>
+                                    <th>Remarks</th>
+                                    <th class="text-end">Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-set="idx" t-value="1"/>
+                                <t t-foreach="doc.line_ids" t-as="line">
+                                    <tr>
+                                        <td><t t-out="idx"/></td>
+                                        <td><t t-out="line.fee_head_id.name"/></td>
+                                        <td><t t-out="line.remarks or '-'"/></td>
+                                        <td class="text-end"><t t-out="'%.2f' % line.amount"/></td>
+                                    </tr>
+                                    <t t-set="idx" t-value="idx + 1"/>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <t t-if="doc.payment_ids">
+                            <h5 class="mt-4" style="color: #064e3b;">Payment History</h5>
+                            <table class="table table-sm table-bordered">
+                                <thead style="background-color: #f1f6f4;">
+                                    <tr><th>Receipt</th><th>Date</th><th>Method</th><th>Reference</th><th class="text-end">Amount</th></tr>
+                                </thead>
+                                <tbody>
+                                    <tr t-foreach="doc.payment_ids.sorted('date')" t-as="pay">
+                                        <td><t t-out="pay.name"/></td>
+                                        <td><t t-out="pay.date"/></td>
+                                        <td><t t-out="dict(pay._fields['method']._description_selection(pay.env)).get(pay.method)"/></td>
+                                        <td><t t-out="pay.reference or '-'"/></td>
+                                        <td class="text-end"><t t-out="'%.2f' % pay.amount"/></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </t>
+
+                        <div class="row mt-4">
+                            <div class="col-6 ms-auto">
+                                <table class="table table-sm table-borderless bg-light p-2">
+                                    <tr>
+                                        <td><strong>Total Fee Amount:</strong></td>
+                                        <td class="text-end" style="font-size: 16px; font-weight: bold;"><t t-out="'%.2f' % doc.amount_total"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Amount Paid:</strong></td>
+                                        <td class="text-end" style="color: green;"><t t-out="'%.2f' % doc.amount_paid"/></td>
+                                    </tr>
+                                    <tr style="border-top: 2px solid #cbd5e0;">
+                                        <td><strong>Balance Due:</strong></td>
+                                        <td class="text-end" style="font-size: 18px; font-weight: bold; color: #c53030;"><t t-out="'%.2f' % doc.amount_due"/></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <div class="row mt-5 text-center">
+                            <div class="col-6 ms-auto">
+                                <p style="border-top: 1px solid #718096; width: 70%; margin: 0 auto; padding-top: 5px;">Accounts Officer Signature</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

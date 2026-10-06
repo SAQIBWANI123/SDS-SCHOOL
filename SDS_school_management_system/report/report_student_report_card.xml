@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_student_report_card">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="text-center mb-4">
+                            <h2 style="font-weight: bold; color: #064e3b;">ACADEMIC REPORT CARD</h2>
+                            <h4 class="text-muted"><t t-out="doc.exam_id.name"/></h4>
+                        </div>
+
+                        <!-- Student & Exam Details Header -->
+                        <div class="row mb-4" style="background-color: #f1f6f4; padding: 15px; border-radius: 8px; border: 1px solid #e1ebe7;">
+                            <div class="col-6">
+                                <p><strong>Student Name:</strong> <t t-out="doc.student_id.name"/></p>
+                                <p><strong>Registration ID:</strong> <t t-out="doc.student_id.student_id_code"/></p>
+                                <p><strong>Class / Section:</strong> <t t-out="doc.class_id.name"/></p>
+                            </div>
+                            <div class="col-6">
+                                <p><strong>Academic Year:</strong> <t t-out="doc.exam_id.academic_year_id.name"/></p>
+                                <p><strong>Roll Number:</strong> <t t-out="doc.student_id.roll_number"/></p>
+                                <p><strong>Report Date:</strong> <t t-out="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d')"/></p>
+                            </div>
+                        </div>
+
+                        <!-- Marks Table -->
+                        <table class="table table-bordered table-striped mt-3">
+                            <thead style="background-color: #0a6b57; color: white;">
+                                <tr>
+                                    <th>Subject</th>
+                                    <th class="text-center">Max Marks</th>
+                                    <th class="text-center">Pass Marks</th>
+                                    <th class="text-center">Obtained Marks</th>
+                                    <th class="text-center">Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="doc.line_ids" t-as="line">
+                                    <tr>
+                                        <td><t t-out="line.subject_id.name"/></td>
+                                        <td class="text-center"><t t-out="line.max_marks"/></td>
+                                        <td class="text-center"><t t-out="line.pass_marks"/></td>
+                                        <td class="text-center" style="font-weight: bold;"><t t-out="line.obtained_marks"/></td>
+                                        <td class="text-center">
+                                            <span t-if="line.result == 'pass'" class="badge bg-success" style="color:white; padding: 5px 10px;">PASS</span>
+                                            <span t-else="" class="badge bg-danger" style="color:white; padding: 5px 10px;">FAIL</span>
+                                        </td>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
+
+                        <!-- Overall Summary -->
+                        <div class="row mt-4 align-items-center">
+                            <div class="col-7">
+                                <div class="p-3" style="border: 1px dashed #cbd5e0; border-radius: 6px;">
+                                    <strong>Class Teacher Remarks:</strong>
+                                    <p class="mt-2 text-muted" style="min-height: 50px;">
+                                        <t t-out="doc.teacher_comments or 'Demonstrates steady academic effort and positive class conduct.'"/>
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="col-5">
+                                <table class="table table-sm table-borderless bg-light p-2">
+                                    <tr>
+                                        <td><strong>Total Marks:</strong></td>
+                                        <td class="text-end"><t t-out="doc.total_obtained_marks"/> / <t t-out="doc.total_max_marks"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Percentage:</strong></td>
+                                        <td class="text-end" style="font-size: 16px; font-weight: bold;"><t t-out="'%.2f' % doc.percentage"/>%</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Grade Letter:</strong></td>
+                                        <td class="text-end" style="font-size: 18px; font-weight: bold; color: #0a6b57;"><t t-out="doc.final_grade"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Rank in Exam:</strong></td>
+                                        <td class="text-end"><strong><t t-out="doc.rank"/></strong> of <t t-out="doc.exam_id.result_count"/></td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>Overall Result:</strong></td>
+                                        <td class="text-end">
+                                            <strong t-if="doc.overall_result == 'pass'" style="color: green;">PASSED</strong>
+                                            <strong t-else="" style="color: red;">FAILED</strong>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+
+                        <!-- Signatures -->
+                        <div class="row mt-5 pt-4 text-center">
+                            <div class="col-4">
+                                <p style="border-top: 1px solid #718096; width: 80%; margin: 0 auto; padding-top: 5px;">Class Teacher Signature</p>
+                            </div>
+                            <div class="col-4">
+                                <p style="border-top: 1px solid #718096; width: 80%; margin: 0 auto; padding-top: 5px;">Exam Controller</p>
+                            </div>
+                            <div class="col-4">
+                                <p style="border-top: 1px solid #718096; width: 80%; margin: 0 auto; padding-top: 5px;">Principal Signature &amp; Stamp</p>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

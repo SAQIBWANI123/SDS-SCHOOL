@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <template id="report_student_id_card">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <t t-call="web.external_layout">
+                    <div class="page">
+                        <div class="container my-4" style="max-width: 400px; border: 2px solid #2b3e50; border-radius: 12px; padding: 20px; background-color: #fcfcfc;">
+                            <div class="text-center mb-3">
+                                <h3 style="color: #2b3e50; font-weight: bold; margin: 0;">ACADEMY SCHOOL</h3>
+                                <p class="text-muted small" style="margin: 0;">Official Student Identity Card</p>
+                                <hr style="border-top: 2px dashed #2b3e50;"/>
+                            </div>
+                            
+                            <div class="row align-items-center">
+                                <div class="col-4 text-center">
+                                    <t t-if="doc.image_1920">
+                                        <img t-att-src="image_data_uri(doc.image_1920)" style="max-height: 100px; max-width: 100px; border-radius: 8px; border: 1px solid #ccc;"/>
+                                    </t>
+                                    <t t-else="">
+                                        <div style="width: 90px; height: 100px; background: #eee; border-radius: 8px; display: inline-block; line-height: 100px; color: #888;">No Photo</div>
+                                    </t>
+                                </div>
+                                <div class="col-8">
+                                    <h4 style="font-weight: bold; color: #111; margin-bottom: 5px;"><t t-out="doc.name"/></h4>
+                                    <p style="margin-bottom: 3px;"><strong>Reg. ID:</strong> <span t-out="doc.student_id_code"/></p>
+                                    <p style="margin-bottom: 3px;"><strong>Grade/Class:</strong> <span t-out="doc.class_id.name"/></p>
+                                    <p style="margin-bottom: 3px;"><strong>Roll No:</strong> <span t-out="doc.roll_number"/></p>
+                                    <p style="margin-bottom: 3px;"><strong>Blood Group:</strong> <span t-out="doc.blood_group and doc.blood_group.upper() or 'N/A'"/></p>
+                                </div>
+                            </div>
+                            
+                            <div class="mt-4 pt-2 border-top text-center">
+                                <p class="small text-muted mb-1">Emergency Contact: <t t-out="doc.phone or doc.email or 'School Office'"/></p>
+                                <div style="font-family: monospace; font-size: 14px; letter-spacing: 2px; color: #555;">
+                                    *<t t-out="doc.student_id_code"/>*
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </t>
+            </t>
+        </t>
+    </template>
+</odoo>

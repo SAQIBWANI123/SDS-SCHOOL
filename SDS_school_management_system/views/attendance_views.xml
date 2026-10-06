@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_school_attendance_tree" model="ir.ui.view">
+        <field name="name">school.attendance.list</field>
+        <field name="model">school.attendance</field>
+        <field name="arch" type="xml">
+            <list string="Class Attendance Registers">
+                <field name="date"/>
+                <field name="class_id"/>
+                <field name="teacher_id"/>
+                <field name="present_count"/>
+                <field name="absent_count"/>
+                <field name="state" widget="badge"
+                       decoration-info="state == 'draft'"
+                       decoration-success="state == 'done'"/>
+            </list>
+        </field>
+    </record>
+
+    <record id="view_school_attendance_form" model="ir.ui.view">
+        <field name="name">school.attendance.form</field>
+        <field name="model">school.attendance</field>
+        <field name="arch" type="xml">
+            <form string="Class Attendance Register">
+                <header>
+                    <button name="action_load_students" string="Reload Class Roster" type="object" class="btn-primary" invisible="state != 'draft'"/>
+                    <button name="action_mark_all_present" string="Mark All Present" type="object" class="btn-secondary" invisible="state != 'draft'"/>
+                    <button name="action_submit" string="Submit Attendance" type="object" class="btn-success" invisible="state != 'draft'"/>
+                    <button name="action_reset_draft" string="Reopen" type="object" invisible="state != 'done'" groups="SDS_school_management_system.group_school_manager"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
+                </header>
+                <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group>
+                            <field name="class_id"/>
+                            <field name="date"/>
+                        </group>
+                        <group>
+                            <field name="teacher_id"/>
+                            <field name="present_count"/>
+                            <field name="absent_count"/>
+                            <field name="pending_count"/>
+                            <field name="attendance_rate" widget="percentage" invisible="1"/>
+                        </group>
+                    </group>
+                    <notebook>
+                        <page string="Student Roster &amp; Status">
+                            <field name="line_ids">
+                                <list editable="bottom" create="0" delete="0">
+                                     <field name="roll_number" readonly="1"/>
+                                     <field name="student_id" readonly="1"/>
+                                    <field name="state" widget="badge"
+                                           decoration-success="state == 'present'"
+                                           decoration-danger="state == 'absent'"
+                                         decoration-primary="state == 'leave'"
+                                           decoration-warning="state == 'late'"
+                                         decoration-info="state == 'excused'"
+                                         placeholder="Select status"/>
+                                     <field name="absence_reason"
+                                         placeholder="Required for absent or on leave"
+                                         required="state in ['absent', 'leave']"/>
+                                </list>
+                            </field>
+                        </page>
+                    </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_school_attendance" model="ir.actions.act_window">
+        <field name="name">Daily Attendance</field>
+        <field name="res_model">school.attendance</field>
+        <field name="view_mode">list,form</field>
+    </record>
+
+    <menuitem id="menu_school_attendance"
+              name="Daily Attendance"
+              parent="menu_school_operations_root"
+              action="action_school_attendance"
+              sequence="1"/>
+</odoo>

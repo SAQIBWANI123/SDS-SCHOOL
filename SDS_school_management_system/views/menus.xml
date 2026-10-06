@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<odoo>
+
+    <!-- ========================================================= -->
+    <!-- SCHOOL MANAGEMENT ROOT MENU -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_school_root"
+        name="CampusPulse"
+        sequence="10"
+        web_icon="SDS_school_management_system,static/description/icon.png"
+        groups="SDS_school_management_system.group_school_teacher"
+    />
+
+
+    <!-- ========================================================= -->
+    <!-- DASHBOARD -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_school_dashboard"
+        name="Dashboard"
+        parent="menu_school_root"
+        sequence="1"
+    />
+
+
+    <!-- ========================================================= -->
+    <!-- STUDENTS & PARENTS -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_school_students_root"
+        name="Students &amp; Parents"
+        parent="menu_school_root"
+        sequence="2"
+    />
+
+
+    <!-- ========================================================= -->
+    <!-- ACADEMICS -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_school_academics_root"
+        name="Academics"
+        parent="menu_school_root"
+        sequence="3"
+    />
+
+
+    <!-- ========================================================= -->
+    <!-- ATTENDANCE & EXAMS -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_school_operations_root"
+        name="Attendance &amp; Exams"
+        parent="menu_school_root"
+        sequence="4"
+    />
+
+
+    <!-- ========================================================= -->
+    <!-- SCHOOL FEES -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_school_fees_root"
+        name="School Fees"
+        parent="menu_school_root"
+        sequence="5"
+    />
+
+
+    <!-- ========================================================= -->
+    <!-- TRANSPORT & FACILITIES -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_school_services_root"
+        name="Transport &amp; Facilities"
+        parent="menu_school_root"
+        sequence="6"
+    />
+
+
+    <!-- ========================================================= -->
+    <!-- NOTICE BOARD & REPORTS -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_school_notice_root"
+        name="Notice Board"
+        parent="menu_school_root"
+        sequence="7"
+    />
+
+    <menuitem
+        id="menu_school_reports_root"
+        name="Reports &amp; Analytics"
+        parent="menu_school_root"
+        sequence="8"
+    />
+
+    <!-- ========================================================= -->
+    <!-- CONFIGURATION -->
+    <!-- ========================================================= -->
+
+    <menuitem
+        id="menu_school_config_root"
+        name="Configuration"
+        parent="menu_school_root"
+        sequence="100"
+        groups="SDS_school_management_system.group_school_manager"
+    />
+
+    <record id="website_menu_school_admission" model="website.menu">
+        <field name="name">Admissions</field>
+        <field name="url">/school/admission</field>
+        <field name="parent_id" ref="website.main_menu"/>
+        <field name="sequence">30</field>
+    </record>
+
+
+</odoo>

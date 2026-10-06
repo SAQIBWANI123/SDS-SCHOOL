@@ -1,0 +1,259 @@
+// CampusPulse dashboard — "Emerald & Gold" theme
+$cp-ink: #0f2a27;
+$cp-forest: #064e3b;
+$cp-emerald: #10b981;
+$cp-teal: #0d9488;
+$cp-gold: #f59e0b;
+$cp-coral: #f43f5e;
+$cp-sky: #0ea5e9;
+$cp-violet: #7c3aed;
+$cp-bg: #f1f6f4;
+$cp-line: #e1ebe7;
+$cp-muted: #6b7f7a;
+
+.o_cp_dash {
+    background: $cp-bg;
+    color: $cp-ink;
+    padding: 20px 24px 28px;
+    height: 100%;
+    overflow-y: auto;
+    font-size: 14px;
+
+    .cp-loading { padding: 80px 0; text-align: center; color: $cp-muted; font-size: 16px; }
+
+    // ---------------- hero ----------------
+    .cp-hero {
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 26px 30px;
+        border-radius: 18px;
+        color: #fff;
+        background: linear-gradient(120deg, #053b30 0%, #0a6b57 55%, #14a37f 100%);
+        box-shadow: 0 10px 28px rgba(6, 78, 59, 0.28);
+
+        &:before, &:after {
+            content: "";
+            position: absolute;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.07);
+        }
+        &:before { width: 260px; height: 260px; right: -60px; top: -110px; }
+        &:after { width: 160px; height: 160px; right: 220px; bottom: -90px; background: rgba(245, 158, 11, 0.16); }
+
+        .cp-hero-text { position: relative; z-index: 1; }
+        .cp-eyebrow { text-transform: uppercase; letter-spacing: 1.4px; font-size: 11px; opacity: 0.85; font-weight: 600; }
+        .cp-chip {
+            margin-left: 10px; padding: 2px 10px; border-radius: 20px;
+            background: rgba(245, 158, 11, 0.95); color: #422006; letter-spacing: 0; text-transform: none; font-size: 11px;
+        }
+        h1 { margin: 6px 0 2px; font-size: 28px; font-weight: 700; color: #fff; }
+        p { margin: 0; opacity: 0.85; }
+        .cp-hero-actions { position: relative; z-index: 1; display: flex; flex-wrap: wrap; gap: 10px; }
+    }
+
+    .cp-btn {
+        border: 1px solid rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 10px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        i { margin-right: 8px; }
+        &:hover { background: rgba(255, 255, 255, 0.25); transform: translateY(-1px); }
+    }
+    .cp-btn-gold { background: $cp-gold; border-color: $cp-gold; color: #422006; &:hover { background: #fbbf24; } }
+    .cp-btn-icon { padding: 8px 12px; i { margin: 0; } }
+
+    // ---------------- KPIs ----------------
+    .cp-kpis {
+        display: grid;
+        grid-template-columns: repeat(6, 1fr);
+        gap: 14px;
+        margin: 18px 0;
+    }
+    .cp-kpi {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        background: #fff;
+        padding: 16px;
+        border-radius: 14px;
+        border: 1px solid $cp-line;
+        cursor: pointer;
+        transition: all 0.15s ease;
+        box-shadow: 0 1px 3px rgba(15, 42, 39, 0.05);
+        &:hover { transform: translateY(-3px); box-shadow: 0 10px 22px rgba(15, 42, 39, 0.1); }
+
+        .cp-kpi-icon {
+            width: 46px; height: 46px; border-radius: 12px; flex: 0 0 46px;
+            display: flex; align-items: center; justify-content: center; font-size: 20px;
+        }
+        .cp-kpi-body { display: flex; flex-direction: column; min-width: 0; }
+        .cp-kpi-label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.6px; color: $cp-muted; font-weight: 600; }
+        strong { font-size: 24px; line-height: 1.15; font-weight: 700; }
+        small { color: $cp-muted; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+
+        &.cp-green .cp-kpi-icon { background: #d1fae5; color: #047857; }
+        &.cp-blue .cp-kpi-icon { background: #e0f2fe; color: #0369a1; }
+        &.cp-gold .cp-kpi-icon { background: #fef3c7; color: #b45309; }
+        &.cp-teal .cp-kpi-icon { background: #ccfbf1; color: #0f766e; }
+        &.cp-coral .cp-kpi-icon { background: #ffe4e6; color: #be123c; }
+        &.cp-violet .cp-kpi-icon { background: #ede9fe; color: #6d28d9; }
+    }
+
+    // ---------------- grid & cards ----------------
+    .cp-grid { display: grid; gap: 14px; margin-bottom: 14px; }
+    .cp-grid-3 { grid-template-columns: repeat(3, 1fr); }
+    .cp-grid-2 { grid-template-columns: 3fr 2fr; }
+
+    .cp-card {
+        background: #fff;
+        border: 1px solid $cp-line;
+        border-radius: 14px;
+        padding: 18px 20px;
+        box-shadow: 0 1px 3px rgba(15, 42, 39, 0.05);
+        min-width: 0;
+
+        > header {
+            display: flex; align-items: baseline; justify-content: space-between; margin-bottom: 14px;
+            h3 { margin: 0; font-size: 15px; font-weight: 700; color: $cp-ink; }
+        }
+        .cp-sub { font-size: 11px; color: $cp-muted; }
+        .cp-link { font-size: 12px; color: $cp-teal; font-weight: 600; cursor: pointer; &:hover { text-decoration: underline; } }
+    }
+    .cp-empty { padding: 28px 0; text-align: center; color: $cp-muted; }
+    .cp-good { color: #047857; font-weight: 600; }
+
+    // ---------------- horizontal bars ----------------
+    .cp-hbars { display: flex; flex-direction: column; gap: 11px; }
+    .cp-hbar {
+        display: grid; grid-template-columns: 92px 1fr 46px; align-items: center; gap: 10px; cursor: pointer;
+        .cp-hbar-label { font-weight: 600; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .cp-hbar-track { height: 10px; background: #e8f1ee; border-radius: 6px; overflow: hidden; }
+        .cp-hbar-fill { height: 100%; border-radius: 6px; background: linear-gradient(90deg, $cp-emerald, $cp-teal); }
+        .cp-hbar-fill.cp-alt { background: linear-gradient(90deg, $cp-gold, #fbbf24); }
+        b { text-align: right; font-size: 12px; }
+    }
+
+    // ---------------- attendance columns ----------------
+    .cp-cols { display: flex; align-items: flex-end; justify-content: space-between; gap: 8px; height: 170px; }
+    .cp-col {
+        flex: 1; display: flex; flex-direction: column; align-items: center; height: 100%;
+        .cp-col-val { font-size: 10px; font-weight: 700; height: 14px; color: $cp-muted; }
+        .cp-col-track { flex: 1; width: 100%; display: flex; align-items: flex-end; background: #eef5f2; border-radius: 8px; overflow: hidden; }
+        .cp-col-fill { width: 100%; border-radius: 8px 8px 0 0; background: linear-gradient(180deg, $cp-emerald, $cp-teal); }
+        .cp-col-fill.cp-low { background: linear-gradient(180deg, #fbbf24, $cp-gold); }
+        .cp-col-label { margin-top: 6px; font-size: 11px; color: $cp-muted; font-weight: 600; }
+    }
+
+    // ---------------- donut ----------------
+    .cp-donut-wrap { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; justify-content: center; }
+    .cp-donut {
+        position: relative; width: 150px; height: 150px;
+        svg { width: 100%; height: 100%; }
+        .cp-donut-center {
+            position: absolute; inset: 0; display: flex; flex-direction: column; align-items: center; justify-content: center;
+            strong { font-size: 26px; line-height: 1; }
+            span { font-size: 11px; color: $cp-muted; }
+        }
+    }
+    .cp-legend {
+        list-style: none; padding: 0; margin: 0; display: flex; flex-direction: column; gap: 10px;
+        li { display: flex; align-items: center; gap: 8px; font-size: 12px; }
+        i { width: 10px; height: 10px; border-radius: 3px; display: inline-block; }
+        b { margin-left: auto; padding-left: 12px; }
+    }
+
+    // ---------------- fee chart ----------------
+    .cp-fee-chart { display: flex; align-items: flex-end; gap: 14px; height: 170px; }
+    .cp-fee-month {
+        flex: 1; height: 100%; display: flex; flex-direction: column; align-items: center;
+        span { margin-top: 6px; font-size: 11px; color: $cp-muted; font-weight: 600; }
+    }
+    .cp-fee-bars { flex: 1; width: 100%; display: flex; align-items: flex-end; justify-content: center; gap: 5px; border-bottom: 1px solid $cp-line; }
+    .cp-fee-bar { width: 38%; border-radius: 6px 6px 0 0; min-height: 2px; }
+    .cp-billed { background: #bfe3d6; }
+    .cp-coll { background: linear-gradient(180deg, $cp-gold, #d97706); }
+    .cp-dot { display: inline-block; width: 9px; height: 9px; border-radius: 3px; margin: 0 4px 0 10px; }
+    .cp-dot-billed { background: #bfe3d6; }
+    .cp-dot-coll { background: $cp-gold; }
+    .cp-fee-summary { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+    .cp-pill {
+        padding: 4px 12px; border-radius: 20px; font-size: 12px; background: #eef5f2; color: $cp-ink;
+        b { margin-left: 6px; }
+        &.cp-pill-paid { background: #d1fae5; color: #065f46; }
+        &.cp-pill-partially_paid { background: #fef3c7; color: #92400e; }
+        &.cp-pill-posted { background: #e0f2fe; color: #075985; }
+    }
+
+    // ---------------- tables & lists ----------------
+    .cp-table {
+        width: 100%; border-collapse: collapse;
+        tr { cursor: pointer; border-bottom: 1px solid $cp-line; &:last-child { border: 0; } &:hover { background: #f6faf8; } }
+        td { padding: 10px 4px; vertical-align: middle; }
+        small { display: block; color: $cp-muted; font-size: 11px; }
+        .cp-late { color: $cp-coral; font-weight: 600; }
+    }
+    .cp-list {
+        list-style: none; margin: 0; padding: 0;
+        li {
+            display: flex; align-items: center; gap: 12px; padding: 9px 4px; border-bottom: 1px solid $cp-line; cursor: pointer;
+            &:last-child { border: 0; }
+            &:hover { background: #f6faf8; }
+        }
+        .cp-li-main { flex: 1; min-width: 0; display: flex; flex-direction: column;
+            b { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+            small { color: $cp-muted; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        }
+    }
+    .cp-avatar {
+        width: 36px; height: 36px; flex: 0 0 36px; border-radius: 50%; background: #d1fae5; color: #047857;
+        display: flex; align-items: center; justify-content: center; font-weight: 700;
+        &.cp-avatar-gold { background: #fef3c7; color: #b45309; }
+    }
+    .cp-state {
+        font-size: 11px; font-weight: 600; padding: 3px 10px; border-radius: 20px; background: #e0f2fe; color: #075985; white-space: nowrap;
+        &.cp-state-review, &.cp-state-waitlist { background: #fef3c7; color: #92400e; }
+        &.cp-state-approved { background: #d1fae5; color: #065f46; }
+        &.cp-state-rejected { background: #ffe4e6; color: #9f1239; }
+    }
+    .cp-notice-dot {
+        width: 36px; height: 36px; flex: 0 0 36px; border-radius: 10px; display: flex; align-items: center; justify-content: center;
+        background: #e0f2fe; color: #0369a1;
+        &.cp-prio-important { background: #fef3c7; color: #b45309; }
+        &.cp-prio-urgent { background: #ffe4e6; color: #be123c; }
+    }
+    .cp-date {
+        width: 40px; flex: 0 0 40px; text-align: center; border-radius: 10px; background: #ede9fe; color: #5b21b6; padding: 4px 0; line-height: 1.1;
+        b { display: block; font-size: 16px; } span { font-size: 10px; text-transform: uppercase; }
+    }
+
+    .cp-mini-stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+    .cp-mini {
+        text-align: center; padding: 18px 6px; border-radius: 12px; background: #f1f6f4; cursor: pointer;
+        b { display: block; font-size: 26px; } span { font-size: 11px; color: $cp-muted; text-transform: uppercase; letter-spacing: 0.5px; }
+        &.cp-mini-warn { background: #fff1f2; b { color: $cp-coral; } }
+        &:hover { box-shadow: inset 0 0 0 2px $cp-emerald; }
+    }
+
+    .cp-footer { text-align: center; margin-top: 18px; font-size: 12px; color: $cp-muted; }
+
+    // ---------------- responsive ----------------
+    @media (max-width: 1360px) { .cp-kpis { grid-template-columns: repeat(3, 1fr); } }
+    @media (max-width: 1100px) {
+        .cp-grid-3 { grid-template-columns: 1fr 1fr; }
+        .cp-grid-2 { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 700px) {
+        padding: 12px;
+        .cp-kpis, .cp-grid-3 { grid-template-columns: 1fr; }
+        .cp-hero h1 { font-size: 22px; }
+    }
+}
