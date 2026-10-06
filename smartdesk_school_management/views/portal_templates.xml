@@ -153,7 +153,7 @@
 </template>
 
 <template id="portal_admission_form_errors"
-          inherit_id="SDS_school_management_system.portal_admission_form"
+          inherit_id="smartdesk_school_management.portal_admission_form"
           name="Admission Form Errors">
   <xpath expr="//form[@action='/school/admission/submit']" position="before">
     <div t-if="error" class="sds_alert_error" role="alert">

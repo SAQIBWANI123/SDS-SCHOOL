@@ -372,5 +372,5 @@
               action="action_school_fee_payment" sequence="2"/>
     <menuitem id="menu_school_fee_generate" name="Generate Fees" parent="menu_school_fees_root"
               action="action_school_fee_generate_wizard" sequence="3"
-              groups="SDS_school_management_system.group_school_manager"/>
+              groups="smartdesk_school_management.group_school_manager"/>
 </odoo>

@@ -26,7 +26,7 @@
                     <button name="action_load_students" string="Reload Class Roster" type="object" class="btn-primary" invisible="state != 'draft'"/>
                     <button name="action_mark_all_present" string="Mark All Present" type="object" class="btn-secondary" invisible="state != 'draft'"/>
                     <button name="action_submit" string="Submit Attendance" type="object" class="btn-success" invisible="state != 'draft'"/>
-                    <button name="action_reset_draft" string="Reopen" type="object" invisible="state != 'done'" groups="SDS_school_management_system.group_school_manager"/>
+                    <button name="action_reset_draft" string="Reopen" type="object" invisible="state != 'done'" groups="smartdesk_school_management.group_school_manager"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
                 </header>
                 <sheet>

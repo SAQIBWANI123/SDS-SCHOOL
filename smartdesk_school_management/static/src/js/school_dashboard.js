@@ -8,7 +8,7 @@ const GENDER_COLORS = { male: "#0ea5e9", female: "#f472b6", other: "#f59e0b" };
 const GENDER_LABELS = { male: "Boys", female: "Girls", other: "Other" };
 
 export class CampusPulseDashboard extends Component {
-    static template = "SDS_school_management_system.CampusPulseDashboard";
+    static template = "smartdesk_school_management.CampusPulseDashboard";
     static props = ["*"];
 
     setup() {

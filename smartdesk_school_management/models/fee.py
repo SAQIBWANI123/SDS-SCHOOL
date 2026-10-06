@@ -208,7 +208,7 @@ class StudentFee(models.Model):
 
     def action_print_receipt(self):
         self.ensure_one()
-        return self.env.ref('SDS_school_management_system.action_report_fee_receipt').report_action(self)
+        return self.env.ref('smartdesk_school_management.action_report_fee_receipt').report_action(self)
 
 
 class SchoolFeePayment(models.Model):

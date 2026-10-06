@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <templates xml:space="preserve">
-    <t t-name="SDS_school_management_system.CampusPulseDashboard">
+    <t t-name="smartdesk_school_management.CampusPulseDashboard">
         <div class="o_cp_dash">
             <t t-if="state.loading and !state.data">
                 <div class="cp-loading"><i class="fa fa-circle-o-notch fa-spin me-2"/>Loading your campus…</div>
@@ -27,7 +27,7 @@
                     </div>
                     <div class="cp-hero-actions">
                         <button class="cp-btn" t-on-click="() => this.openNew('New Admission', 'school.admission')"><i class="fa fa-user-plus"/>New Admission</button>
-                        <button class="cp-btn" t-on-click="() => this.openXml('SDS_school_management_system.action_school_attendance')"><i class="fa fa-check-square-o"/>Attendance</button>
+                        <button class="cp-btn" t-on-click="() => this.openXml('smartdesk_school_management.action_school_attendance')"><i class="fa fa-check-square-o"/>Attendance</button>
                         <button class="cp-btn" t-on-click="() => this.openList('Unpaid Fees', 'school.student.fee', [['state', 'in', ['posted', 'partially_paid']]])"><i class="fa fa-money"/>Collect Fees</button>
                         <button class="cp-btn cp-btn-gold" t-on-click="() => this.openNew('New Notice', 'school.notice')"><i class="fa fa-bullhorn"/>Post Notice</button>
                         <button class="cp-btn cp-btn-icon" title="Refresh" t-on-click="load"><i t-attf-class="fa fa-refresh {{ state.loading ? 'fa-spin' : '' }}"/></button>
@@ -36,7 +36,7 @@
 
                 <!-- ================= KPI STRIP ================= -->
                 <section class="cp-kpis">
-                    <div class="cp-kpi cp-green" t-on-click="() => this.openXml('SDS_school_management_system.action_school_student')">
+                    <div class="cp-kpi cp-green" t-on-click="() => this.openXml('smartdesk_school_management.action_school_student')">
                         <div class="cp-kpi-icon"><i class="fa fa-graduation-cap"/></div>
                         <div class="cp-kpi-body">
                             <span class="cp-kpi-label">Enrolled Students</span>
@@ -44,7 +44,7 @@
                             <small><t t-esc="k.students"/> total records</small>
                         </div>
                     </div>
-                    <div class="cp-kpi cp-blue" t-on-click="() => this.openXml('SDS_school_management_system.action_school_teacher')">
+                    <div class="cp-kpi cp-blue" t-on-click="() => this.openXml('smartdesk_school_management.action_school_teacher')">
                         <div class="cp-kpi-icon"><i class="fa fa-user-circle-o"/></div>
                         <div class="cp-kpi-body">
                             <span class="cp-kpi-label">Teachers &amp; Staff</span>
@@ -52,7 +52,7 @@
                             <small><t t-esc="k.classes"/> classes running</small>
                         </div>
                     </div>
-                    <div class="cp-kpi cp-gold" t-on-click="() => this.openXml('SDS_school_management_system.action_school_dashboard_attendance')">
+                    <div class="cp-kpi cp-gold" t-on-click="() => this.openXml('smartdesk_school_management.action_school_dashboard_attendance')">
                         <div class="cp-kpi-icon"><i class="fa fa-check-circle-o"/></div>
                         <div class="cp-kpi-body">
                             <span class="cp-kpi-label">Attendance Today</span>
@@ -60,7 +60,7 @@
                             <small><t t-if="k.att_total"><t t-esc="k.att_present"/> of <t t-esc="k.att_total"/> present</t><t t-else="">No register submitted</t></small>
                         </div>
                     </div>
-                    <div class="cp-kpi cp-teal" t-on-click="() => this.openXml('SDS_school_management_system.action_school_fee_payment')">
+                    <div class="cp-kpi cp-teal" t-on-click="() => this.openXml('smartdesk_school_management.action_school_fee_payment')">
                         <div class="cp-kpi-icon"><i class="fa fa-money"/></div>
                         <div class="cp-kpi-body">
                             <span class="cp-kpi-label">Fees Collected</span>
@@ -76,7 +76,7 @@
                             <small><t t-esc="k.overdue_count"/> statement(s) late</small>
                         </div>
                     </div>
-                    <div class="cp-kpi cp-violet" t-on-click="() => this.openXml('SDS_school_management_system.action_school_admission')">
+                    <div class="cp-kpi cp-violet" t-on-click="() => this.openXml('smartdesk_school_management.action_school_admission')">
                         <div class="cp-kpi-icon"><i class="fa fa-inbox"/></div>
                         <div class="cp-kpi-body">
                             <span class="cp-kpi-label">Pending Admissions</span>
@@ -180,7 +180,7 @@
                 <!-- ================= LISTS ROW ================= -->
                 <section class="cp-grid cp-grid-3">
                     <div class="cp-card">
-                        <header><h3>Latest Admissions</h3><a class="cp-link" t-on-click="() => this.openXml('SDS_school_management_system.action_school_admission')">Open</a></header>
+                        <header><h3>Latest Admissions</h3><a class="cp-link" t-on-click="() => this.openXml('smartdesk_school_management.action_school_admission')">Open</a></header>
                         <div t-if="!d.admissions.length" class="cp-empty">No applications yet.</div>
                         <ul class="cp-list">
                             <li t-foreach="d.admissions" t-as="a" t-key="a.id" t-on-click="() => this.openRecord('school.admission', a.id)">
@@ -192,7 +192,7 @@
                     </div>
 
                     <div class="cp-card">
-                        <header><h3>Notice Board</h3><a class="cp-link" t-on-click="() => this.openXml('SDS_school_management_system.action_school_notice')">Manage</a></header>
+                        <header><h3>Notice Board</h3><a class="cp-link" t-on-click="() => this.openXml('smartdesk_school_management.action_school_notice')">Manage</a></header>
                         <div t-if="!d.notices.length" class="cp-empty">No published notices.</div>
                         <ul class="cp-list">
                             <li t-foreach="d.notices" t-as="n" t-key="n.id" t-on-click="() => this.openRecord('school.notice', n.id)">
@@ -203,7 +203,7 @@
                     </div>
 
                     <div class="cp-card">
-                        <header><h3>Upcoming Exams</h3><a class="cp-link" t-on-click="() => this.openXml('SDS_school_management_system.action_school_exam')">Open</a></header>
+                        <header><h3>Upcoming Exams</h3><a class="cp-link" t-on-click="() => this.openXml('smartdesk_school_management.action_school_exam')">Open</a></header>
                         <div t-if="!d.exams.length" class="cp-empty">No upcoming exams.</div>
                         <ul class="cp-list">
                             <li t-foreach="d.exams" t-as="e" t-key="e.id" t-on-click="() => this.openRecord('school.exam', e.id)">
@@ -243,7 +243,7 @@
                     <div class="cp-card">
                         <header><h3>Library &amp; Resources</h3></header>
                         <div class="cp-mini-stats">
-                            <div class="cp-mini" t-on-click="() => this.openXml('SDS_school_management_system.action_school_library_book')"><b t-esc="k.books"/><span>Titles</span></div>
+                            <div class="cp-mini" t-on-click="() => this.openXml('smartdesk_school_management.action_school_library_book')"><b t-esc="k.books"/><span>Titles</span></div>
                             <div class="cp-mini" t-on-click="() => this.openList('Books Out', 'school.library.issue', [['state', 'in', ['issued', 'overdue']]])"><b t-esc="k.library_out"/><span>On loan</span></div>
                             <div class="cp-mini cp-mini-warn" t-on-click="() => this.openList('Overdue Books', 'school.library.issue', ['|', ['state', '=', 'overdue'], '&amp;', ['state', '=', 'issued'], ['date_due', '&lt;', d.today]])"><b t-esc="k.library_late"/><span>Overdue</span></div>
                         </div>

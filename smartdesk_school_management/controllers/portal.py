@@ -43,7 +43,7 @@ class SchoolPortal(http.Controller):
     @http.route('/school/admission', type='http', auth='public', website=True)
     def admission_form(self, **kw):
         return request.render(
-            'SDS_school_management_system.portal_admission_form',
+            'smartdesk_school_management.portal_admission_form',
             self._admission_form_values(),
         )
 
@@ -56,7 +56,7 @@ class SchoolPortal(http.Controller):
         )
         if any(not post.get(f) for f in required_fields):
             return request.render(
-                'SDS_school_management_system.portal_admission_form',
+                'smartdesk_school_management.portal_admission_form',
                 self._admission_form_values('Please complete all required fields.'),
                 status=400,
             )
@@ -72,7 +72,7 @@ class SchoolPortal(http.Controller):
 
         if not grade or not grade.exists():
             return request.render(
-                'SDS_school_management_system.portal_admission_form',
+                'smartdesk_school_management.portal_admission_form',
                 self._admission_form_values('Please select a valid grade and academic year.'),
                 status=400,
             )
@@ -80,7 +80,7 @@ class SchoolPortal(http.Controller):
         uploads = request.httprequest.files.getlist('documents')
         if len(uploads) > self._MAX_DOCUMENTS:
             return request.render(
-                'SDS_school_management_system.portal_admission_form',
+                'smartdesk_school_management.portal_admission_form',
                 self._admission_form_values('You can upload up to 10 documents.'),
                 status=400,
             )
@@ -101,7 +101,7 @@ class SchoolPortal(http.Controller):
             content = uploaded.read(self._MAX_DOCUMENT_SIZE + 1)
             if ext not in self._ALLOWED_DOCUMENT_EXTENSIONS or len(content) > self._MAX_DOCUMENT_SIZE:
                 return request.render(
-                    'SDS_school_management_system.portal_admission_form',
+                    'smartdesk_school_management.portal_admission_form',
                     self._admission_form_values(
                         'Documents must be PDF, Word, JPG or PNG files under 5 MB each.'
                     ),
@@ -123,7 +123,7 @@ class SchoolPortal(http.Controller):
             admission.document_ids = [(6, 0, attachment_ids)]
 
         return request.render(
-            'SDS_school_management_system.portal_admission_success',
+            'smartdesk_school_management.portal_admission_success',
             {'admission': admission},
         )
 
@@ -156,7 +156,7 @@ class SchoolPortal(http.Controller):
 
         fees = request.env['school.student.fee'].sudo().search(fee_domain)
 
-        return request.render('SDS_school_management_system.portal_fee_list', {
+        return request.render('smartdesk_school_management.portal_fee_list', {
             'students': students,
             'selected_student': selected_student,
             'fees': fees,
@@ -175,7 +175,7 @@ class SchoolPortal(http.Controller):
         ], limit=1)
         if not fee:
             return request.not_found()
-        return request.render('SDS_school_management_system.portal_fee_detail', {
+        return request.render('smartdesk_school_management.portal_fee_detail', {
             'fee': fee,
             'fee_state_labels': self._FEE_STATE_LABELS,
         })
@@ -185,7 +185,7 @@ class SchoolPortal(http.Controller):
     @http.route('/my/school/students', type='http', auth='user', website=True)
     def my_students(self, **kw):
         students = self._portal_students()
-        return request.render('SDS_school_management_system.portal_student_list', {
+        return request.render('smartdesk_school_management.portal_student_list', {
             'students': students,
         })
 
@@ -216,7 +216,7 @@ class SchoolPortal(http.Controller):
         absent_att   = len(attendance.filtered(lambda l: l.state == 'absent'))
         att_pct      = round((present_att / total_att * 100) if total_att else 0, 1)
 
-        return request.render('SDS_school_management_system.portal_student_detail', {
+        return request.render('smartdesk_school_management.portal_student_detail', {
             'student': student,
             'attendance': attendance,
             'results': results,

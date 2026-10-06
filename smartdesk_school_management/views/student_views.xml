@@ -450,6 +450,6 @@
               parent="menu_school_academics_root"
               action="action_school_promote_wizard"
               sequence="20"
-              groups="SDS_school_management_system.group_school_manager"/>
+              groups="smartdesk_school_management.group_school_manager"/>
 
 </odoo>

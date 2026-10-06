@@ -65,12 +65,12 @@ Highlights
     ],
     'assets': {
         'web.assets_backend': [
-            'SDS_school_management_system/static/src/scss/school_dashboard.scss',
-            'SDS_school_management_system/static/src/js/school_dashboard.js',
-            'SDS_school_management_system/static/src/xml/school_dashboard.xml',
+            'smartdesk_school_management/static/src/scss/school_dashboard.scss',
+            'smartdesk_school_management/static/src/js/school_dashboard.js',
+            'smartdesk_school_management/static/src/xml/school_dashboard.xml',
         ],
         'web.assets_frontend': [
-            'SDS_school_management_system/static/src/css/portal.css',
+            'smartdesk_school_management/static/src/css/portal.css',
         ],
     },
     'installable': True,

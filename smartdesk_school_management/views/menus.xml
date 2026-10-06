@@ -10,8 +10,8 @@
         id="menu_school_root"
         name="CampusPulse"
         sequence="10"
-        web_icon="SDS_school_management_system,static/description/icon.png"
-        groups="SDS_school_management_system.group_school_teacher"
+        web_icon="smartdesk_school_management,static/description/icon.png"
+        groups="smartdesk_school_management.group_school_teacher"
     />
 
 
@@ -114,7 +114,7 @@
         name="Configuration"
         parent="menu_school_root"
         sequence="100"
-        groups="SDS_school_management_system.group_school_manager"
+        groups="smartdesk_school_management.group_school_manager"
     />
 
     <record id="website_menu_school_admission" model="website.menu">
